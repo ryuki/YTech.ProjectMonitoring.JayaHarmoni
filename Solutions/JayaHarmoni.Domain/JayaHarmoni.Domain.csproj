@@ -63,8 +63,22 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\Packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpArch.Domain">
       <HintPath>..\..\ReferencedAssemblies\SharpArchitecture\SharpArch.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpArch.NHibernate">
+      <HintPath>..\..\ReferencedAssemblies\SharpArchitecture\SharpArch.NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -81,6 +95,42 @@
     <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Contracts\IMCostRepository.cs" />
+    <Compile Include="Contracts\IMJobRepository.cs" />
+    <Compile Include="Contracts\IMEquipRepository.cs" />
+    <Compile Include="Contracts\IMEmployeeRepository.cs" />
+    <Compile Include="Contracts\IMCustomerRepository.cs" />
+    <Compile Include="Contracts\IMOwnerRepository.cs" />
+    <Compile Include="Contracts\ITAbsentDetRepository.cs" />
+    <Compile Include="Contracts\ITAbsentRepository.cs" />
+    <Compile Include="Contracts\ITBapRepository.cs" />
+    <Compile Include="Contracts\ITProjectCostRepository.cs" />
+    <Compile Include="Contracts\ITProjectRepository.cs" />
+    <Compile Include="Contracts\ITWorkRepository.cs" />
+    <Compile Include="Contracts\Tasks\IMJobTasks.cs" />
+    <Compile Include="Contracts\Tasks\IMEquipTasks.cs" />
+    <Compile Include="Contracts\Tasks\IMCostTasks.cs" />
+    <Compile Include="Contracts\Tasks\IMEmployeeTasks.cs" />
+    <Compile Include="Contracts\Tasks\IMCustomerTasks.cs" />
+    <Compile Include="Contracts\Tasks\IMOwnerTasks.cs" />
+    <Compile Include="Contracts\Tasks\ITAbsentDetTasks.cs" />
+    <Compile Include="Contracts\Tasks\ITAbsentTasks.cs" />
+    <Compile Include="Contracts\Tasks\ITBapTasks.cs" />
+    <Compile Include="Contracts\Tasks\ITProjectCostTasks.cs" />
+    <Compile Include="Contracts\Tasks\ITProjectTasks.cs" />
+    <Compile Include="Contracts\Tasks\ITWorkTasks.cs" />
+    <Compile Include="TAbsentDet.cs" />
+    <Compile Include="TAbsent.cs" />
+    <Compile Include="TBap.cs" />
+    <Compile Include="TProjectCost.cs" />
+    <Compile Include="TWork.cs" />
+    <Compile Include="TProject.cs" />
+    <Compile Include="MOwner.cs" />
+    <Compile Include="MJob.cs" />
+    <Compile Include="MEmployee.cs" />
+    <Compile Include="MCost.cs" />
+    <Compile Include="MEquip.cs" />
+    <Compile Include="MCustomer.cs" />
     <Compile Include="MyEntity1.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,7 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\Queries\" />
-    <Folder Include="Contracts\Tasks\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

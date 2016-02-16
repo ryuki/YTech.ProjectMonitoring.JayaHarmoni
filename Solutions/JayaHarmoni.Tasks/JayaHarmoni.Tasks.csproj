@@ -86,6 +86,18 @@
     <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="MCostTasks.cs" />
+    <Compile Include="MEquipTasks.cs" />
+    <Compile Include="MJobTasks.cs" />
+    <Compile Include="MEmployeeTasks.cs" />
+    <Compile Include="MCustomerTasks.cs" />
+    <Compile Include="MOwnerTasks.cs" />
+    <Compile Include="TAbsentDetTasks.cs" />
+    <Compile Include="TAbsentTasks.cs" />
+    <Compile Include="TBapTasks.cs" />
+    <Compile Include="TProjectCostTasks.cs" />
+    <Compile Include="TProjectTasks.cs" />
+    <Compile Include="TWorkTasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JayaHarmoni.Domain\JayaHarmoni.Domain.csproj">

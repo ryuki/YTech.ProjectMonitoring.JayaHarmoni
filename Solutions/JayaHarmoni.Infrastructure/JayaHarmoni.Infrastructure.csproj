@@ -108,6 +108,32 @@
     <Compile Include="NHibernateMaps\Conventions\PrimaryKeyConvention.cs" />
     <Compile Include="NHibernateMaps\Conventions\TableNameConvention.cs" />
     <Compile Include="NHibernateMaps\AutoPersistenceModelGenerator.cs" />
+    <Compile Include="NHibernateMaps\MEquipMap.cs" />
+    <Compile Include="NHibernateMaps\MJobMap.cs" />
+    <Compile Include="NHibernateMaps\MCostMap.cs" />
+    <Compile Include="NHibernateMaps\MEmployeeMap.cs" />
+    <Compile Include="NHibernateMaps\MCustomerMap.cs" />
+    <Compile Include="NHibernateMaps\MOwnerMap.cs" />
+    <Compile Include="NHibernateMaps\TAbsentDetMap.cs" />
+    <Compile Include="NHibernateMaps\TAbsentMap.cs" />
+    <Compile Include="NHibernateMaps\TBapMap.cs" />
+    <Compile Include="NHibernateMaps\TProjectCostMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NHibernateMaps\TProjectMap.cs" />
+    <Compile Include="NHibernateMaps\TWorkMap.cs" />
+    <Compile Include="Repository\MEquipRepository.cs" />
+    <Compile Include="Repository\MCostRepository.cs" />
+    <Compile Include="Repository\MJobRepository.cs" />
+    <Compile Include="Repository\MEmployeeRepository.cs" />
+    <Compile Include="Repository\MCustomerRepository.cs" />
+    <Compile Include="Repository\MOwnerRepository.cs" />
+    <Compile Include="Repository\TAbsentDetRepository.cs" />
+    <Compile Include="Repository\TAbsentRepository.cs" />
+    <Compile Include="Repository\TBapRepository.cs" />
+    <Compile Include="Repository\TProjectCostRepository.cs" />
+    <Compile Include="Repository\TProjectRepository.cs" />
+    <Compile Include="Repository\TWorkRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JayaHarmoni.Domain\JayaHarmoni.Domain.csproj">

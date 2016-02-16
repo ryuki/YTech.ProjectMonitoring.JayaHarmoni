@@ -1,0 +1,58 @@
+﻿@{ Layout = null; }
+@if (Request.IsAuthenticated) {
+@(Html.Kendo().PanelBar()
+    .Name("navigationPanelBar")
+    .Animation(true)
+    .ExpandMode(PanelBarExpandMode.Single)
+    .HighlightPath(true)
+    .SelectedIndex(0)
+    .HtmlAttributes(new { style = "font-weight:bold;" })
+    .Items(panels =>
+    {        
+        panels.Add()
+           .Text("Master")
+           .Items(childPanels =>
+           {
+               childPanels.Add().Text("Konsumen").Action("Index", "Customer").HtmlAttributes(new { style = "font-weight:normal;" });
+               childPanels.Add().Text("Karyawan").Action("Index", "Employee").HtmlAttributes(new { style = "font-weight:normal;" });
+               childPanels.Add().Text("Pekerjaan").Action("Index", "Job").HtmlAttributes(new { style = "font-weight:normal;" });
+               //childPanels.Add().Text("Pekerjaan").Action("Index", "MJob").HtmlAttributes(new { style = "font-weight:normal;" });
+               childPanels.Add().Text("Biaya").Action("Index", "Cost").HtmlAttributes(new { style = "font-weight:normal;" });
+               childPanels.Add().Text("Alat").Action("Index", "Equip").HtmlAttributes(new { style = "font-weight:normal;" });
+           });
+
+        panels.Add()
+            .Text("Proyek")
+            .Items(childPanels =>
+            {
+                childPanels.Add().Text("Daftar Proyek").Action("Index", "TProject").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Input Timesheet").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Berita Acara Pemeriksaan").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Perbandingan Timesheet dan BAP").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Cetak Invoice").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Invoice Tracking").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Kalkulasi Gaji").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Kalkulasi Profit Per Alat dan Bagi Hasil").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Input Biaya Proyek").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+            });
+
+        panels.Add()
+            .Text("Laporan")
+            .Items(childPanels =>
+            {
+                //childPanels.Add().Text("Laporan Harian Servis Printer").Action("Index", "Reports", new { rpt = JayaHarmoni.Enums.EnumReports.RptWODailyRecap }).HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Laporan Timesheet").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Laporan Hasil Kerja Per Alat").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Laporan Invoice").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Laporan Gaji").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+            });
+
+        panels.Add()
+            .Text("Utiliti")
+            .Items(childPanels =>
+            {
+                childPanels.Add().Text("Ganti Password").Action("ChangePassword", "Account").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Daftar User").Action("Index", "Account").HtmlAttributes(new { style = "font-weight:normal;" });
+            });
+    })
+)}
