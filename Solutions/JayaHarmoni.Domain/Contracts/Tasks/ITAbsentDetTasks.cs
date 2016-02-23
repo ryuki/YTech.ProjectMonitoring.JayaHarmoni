@@ -13,5 +13,7 @@ namespace JayaHarmoni.Domain.Contracts.Tasks
         TAbsentDet Delete(TAbsentDet entity);
         TAbsentDet One(string id);
         IEnumerable<TAbsentDet> GetListNotDeleted();
+
+        IEnumerable<TAbsentDet> GetListNotDeleted(string AbsentId);
     }
 }

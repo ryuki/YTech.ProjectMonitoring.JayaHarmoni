@@ -26,14 +26,14 @@
             .Items(childPanels =>
             {
                 childPanels.Add().Text("Daftar Proyek").Action("Index", "TProject").HtmlAttributes(new { style = "font-weight:normal;" });
-                childPanels.Add().Text("Input Timesheet").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
-                childPanels.Add().Text("Berita Acara Pemeriksaan").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
-                childPanels.Add().Text("Perbandingan Timesheet dan BAP").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
-                childPanels.Add().Text("Cetak Invoice").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
-                childPanels.Add().Text("Invoice Tracking").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Input Timesheet").Action("ProjectAbsent", "TProject").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Berita Acara Pemeriksaan").Action("Index", "TBap").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Perbandingan Timesheet dan BAP").Action("ResultBapAndAbsent", "TBap").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Buat Invoice").Action("Index", "TInvoice").HtmlAttributes(new { style = "font-weight:normal;" });
+                //childPanels.Add().Text("Invoice Tracking").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
                 childPanels.Add().Text("Kalkulasi Gaji").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
                 childPanels.Add().Text("Kalkulasi Profit Per Alat dan Bagi Hasil").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
-                childPanels.Add().Text("Input Biaya Proyek").Action("Index", "Home").HtmlAttributes(new { style = "font-weight:normal;" });
+                childPanels.Add().Text("Input Biaya Proyek").Action("Index", "TProjectCost").HtmlAttributes(new { style = "font-weight:normal;" });
             });
 
         panels.Add()

@@ -17,6 +17,15 @@ namespace JayaHarmoni.Infrastructure.Repository
            ICriteria criteria = Session.CreateCriteria(typeof(TWork));
            criteria.Add(Expression.Not(Expression.Eq("DataStatus", "Deleted")));
            return criteria.List<TWork>();
-       } 
+       }
+
+
+       public IEnumerable<TWork> GetListNotDeleted(string projectId)
+       {
+           ICriteria criteria = Session.CreateCriteria(typeof(TWork));
+           criteria.Add(Expression.Not(Expression.Eq("DataStatus", "Deleted")));
+           criteria.Add(Expression.Eq("ProjectId.Id", projectId));
+           return criteria.List<TWork>();
+       }
     }
 }

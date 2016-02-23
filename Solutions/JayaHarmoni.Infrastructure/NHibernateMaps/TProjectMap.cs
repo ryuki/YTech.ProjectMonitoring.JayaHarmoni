@@ -12,18 +12,19 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
         public void Override(FluentNHibernate.Automapping.AutoMapping<TProject> mapping)
         {
             #region Properties
-        
+
             mapping.DynamicUpdate();
             mapping.DynamicInsert();
             mapping.SelectBeforeUpdate();
 
             mapping.Table("[dbo].[T_PROJECT]");
-			mapping.Id(x => x.Id, "[PROJECT_ID]")
+            mapping.Id(x => x.Id, "[PROJECT_ID]")
                  .GeneratedBy.Assigned();
 
             mapping.References<MCustomer>(x => x.CustomerId, "[CUSTOMER_ID]").ForeignKey();
-            
+
             mapping.Map(x => x.ProjectName, "[PROJECT_NAME]");
+            mapping.Map(x => x.ProjectSpkNo, "[PROJECT_SPK_NO]");
             mapping.Map(x => x.ProjectDate, "[PROJECT_DATE]");
             mapping.Map(x => x.ProjectPrice, "[PROJECT_PRICE]");
             mapping.Map(x => x.ProjectRetention, "[PROJECT_RETENTION]");

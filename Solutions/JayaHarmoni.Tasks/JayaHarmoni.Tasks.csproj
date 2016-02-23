@@ -95,6 +95,7 @@
     <Compile Include="TAbsentDetTasks.cs" />
     <Compile Include="TAbsentTasks.cs" />
     <Compile Include="TBapTasks.cs" />
+    <Compile Include="TInvoiceTasks.cs" />
     <Compile Include="TProjectCostTasks.cs" />
     <Compile Include="TProjectTasks.cs" />
     <Compile Include="TWorkTasks.cs" />

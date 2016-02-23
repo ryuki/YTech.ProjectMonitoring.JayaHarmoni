@@ -15,8 +15,8 @@ namespace JayaHarmoni.Domain
         public virtual TAbsent AbsentId { get; set; }
         public virtual TWork WorkId { get; set; }
         public virtual DateTime? AbsentDetDate { get; set; }
-        public virtual string AbsentDetOperator { get; set; }
-        public virtual string AbsentDetSinso { get; set; }
+        public virtual MEmployee AbsentDetOperator { get; set; }
+        public virtual MEmployee AbsentDetSinso { get; set; }
         public virtual decimal? AbsentDetStart { get; set; }
         public virtual decimal? AbsentDetEnd { get; set; }
         public virtual decimal? AbsentDetQty { get; set; }

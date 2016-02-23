@@ -59,6 +59,27 @@ namespace JayaHarmoni.Tasks
         {
             var entitys = this._TBapRepository.GetListNotDeleted(); ;
             return entitys;
-        } 
+        }
+
+
+        public IEnumerable<TBap> GetListNotDeleted(string ParentProjectId)
+        {
+            var entitys = this._TBapRepository.GetListNotDeleted(ParentProjectId);
+            return entitys;
+        }
+
+
+        public IEnumerable<object> GetListResultBapAndAbsent(string ParentProjectId)
+        {
+            var entitys = this._TBapRepository.GetListResultBapAndAbsent(ParentProjectId); ;
+            return entitys;
+        }
+
+
+        public IEnumerable<TBap> GetListByProjectAndPeriod(string ParentProjectId, DateTime? period)
+        {
+            var entitys = this._TBapRepository.GetListByProjectAndPeriod(ParentProjectId, period);
+            return entitys;
+        }
     }
 }

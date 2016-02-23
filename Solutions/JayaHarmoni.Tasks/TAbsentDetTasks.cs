@@ -59,6 +59,13 @@ namespace JayaHarmoni.Tasks
         {
             var entitys = this._TAbsentDetRepository.GetListNotDeleted(); ;
             return entitys;
-        } 
+        }
+
+
+        public IEnumerable<TAbsentDet> GetListNotDeleted(string AbsentId)
+        {
+            var entitys = this._TAbsentDetRepository.GetListNotDeleted(AbsentId); ;
+            return entitys;
+        }
     }
 }

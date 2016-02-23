@@ -14,7 +14,7 @@ namespace JayaHarmoni.Domain
         [DomainSignature]
         public virtual TProject ProjectId { get; set; }
         public virtual MJob JobId { get; set; }
-        public virtual string WorkQty { get; set; }
+        public virtual decimal? WorkQty { get; set; }
         public virtual decimal? WorkPrice { get; set; }
         public virtual decimal? WorkTotal { get; set; }
         public virtual decimal? WorkRealQty { get; set; }

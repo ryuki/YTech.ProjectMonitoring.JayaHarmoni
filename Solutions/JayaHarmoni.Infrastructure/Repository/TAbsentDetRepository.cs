@@ -17,6 +17,17 @@ namespace JayaHarmoni.Infrastructure.Repository
            ICriteria criteria = Session.CreateCriteria(typeof(TAbsentDet));
            criteria.Add(Expression.Not(Expression.Eq("DataStatus", "Deleted")));
            return criteria.List<TAbsentDet>();
-       } 
+       }
+
+
+       public IEnumerable<TAbsentDet> GetListNotDeleted(string AbsentId)
+       {
+           ICriteria criteria = Session.CreateCriteria(typeof(TAbsentDet));
+           criteria.Add(Expression.Not(Expression.Eq("DataStatus", "Deleted")));
+           criteria.Add(Expression.Eq("AbsentId.Id", AbsentId));
+
+           criteria.AddOrder(new Order("AbsentDetDate", true));
+           return criteria.List<TAbsentDet>();
+       }
     }
 }

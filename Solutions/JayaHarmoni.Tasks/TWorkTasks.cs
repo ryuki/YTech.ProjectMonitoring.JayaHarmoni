@@ -57,8 +57,15 @@ namespace JayaHarmoni.Tasks
 
         public IEnumerable<TWork> GetListNotDeleted()
         {
-            var entitys = this._TWorkRepository.GetListNotDeleted(); ;
+            var entitys = this._TWorkRepository.GetListNotDeleted();
             return entitys;
-        } 
+        }
+
+
+        public IEnumerable<TWork> GetListNotDeleted(string projectId)
+        {
+            var entitys = this._TWorkRepository.GetListNotDeleted(projectId);
+            return entitys;
+        }
     }
 }

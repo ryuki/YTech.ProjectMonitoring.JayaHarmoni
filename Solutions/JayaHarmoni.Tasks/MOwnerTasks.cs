@@ -59,6 +59,13 @@ namespace JayaHarmoni.Tasks
         {
             var entitys = this._MOwnerRepository.GetListNotDeleted(); ;
             return entitys;
-        } 
+        }
+
+
+        public IEnumerable<MOwner> GetListNotDeleted(string ParentEquipId)
+        {
+            var entitys = this._MOwnerRepository.GetListNotDeleted(ParentEquipId); ;
+            return entitys;
+        }
     }
 }

@@ -117,6 +117,7 @@
     <Compile Include="NHibernateMaps\TAbsentDetMap.cs" />
     <Compile Include="NHibernateMaps\TAbsentMap.cs" />
     <Compile Include="NHibernateMaps\TBapMap.cs" />
+    <Compile Include="NHibernateMaps\TInvoiceMap.cs" />
     <Compile Include="NHibernateMaps\TProjectCostMap.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -131,6 +132,7 @@
     <Compile Include="Repository\TAbsentDetRepository.cs" />
     <Compile Include="Repository\TAbsentRepository.cs" />
     <Compile Include="Repository\TBapRepository.cs" />
+    <Compile Include="Repository\TInvoiceRepository.cs" />
     <Compile Include="Repository\TProjectCostRepository.cs" />
     <Compile Include="Repository\TProjectRepository.cs" />
     <Compile Include="Repository\TWorkRepository.cs" />

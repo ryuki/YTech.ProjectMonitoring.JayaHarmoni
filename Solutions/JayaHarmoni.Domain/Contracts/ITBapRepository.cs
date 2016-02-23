@@ -10,6 +10,11 @@ namespace JayaHarmoni.Domain.Contracts
 {
     public interface ITBapRepository : INHibernateRepositoryWithTypedId<TBap, string>
     {
-       IEnumerable<TBap> GetListNotDeleted();
+        IEnumerable<TBap> GetListNotDeleted();
+        IEnumerable<TBap> GetListNotDeleted(string ParentProjectId);
+
+        IEnumerable<object> GetListResultBapAndAbsent(string ParentProjectId);
+
+        IEnumerable<TBap> GetListByProjectAndPeriod(string ParentProjectId, DateTime? period);
     }
 }

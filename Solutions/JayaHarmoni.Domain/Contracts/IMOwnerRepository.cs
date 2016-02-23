@@ -10,6 +10,7 @@ namespace JayaHarmoni.Domain.Contracts
 {
     public interface IMOwnerRepository : INHibernateRepositoryWithTypedId<MOwner, string>
     {
-       IEnumerable<MOwner> GetListNotDeleted();
+        IEnumerable<MOwner> GetListNotDeleted();
+        IEnumerable<MOwner> GetListNotDeleted(string ParentEquipId);
     }
 }

@@ -1,0 +1,51 @@
+﻿@model JayaHarmoni.Web.Mvc.Controllers.ViewModels.ReportsViewModel
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="result"></div>
+<h2>@Model.Title</h2>
+@using (Html.BeginForm())
+{
+    if (Model.ShowDateFrom) {
+        @:<div class="editor-label">
+            @Html.LabelFor(model => model.RptDateFrom)
+        @:</div>
+        @:<div class="editor-field">
+            @Html.EditorFor(model => model.RptDateFrom)
+            @Html.ValidationMessageFor(model => model.RptDateFrom)
+        @:</div>
+      }
+    
+    if(Model.ShowDateTo) {
+        @:<div class="editor-label">
+            @Html.LabelFor(model => model.RptDateTo)
+        @:</div>
+        @:<div class="editor-field">
+            @Html.EditorFor(model => model.RptDateTo)
+            @Html.ValidationMessageFor(model => model.RptDateTo)
+        @:</div>
+      }
+    
+    @Html.Button("btnGenerate", "Lihat Laporan", HtmlButtonType.Button)
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("button[name='btnGenerate']").bind("click", function () {
+            //alert("test");
+            var f = $('form');
+            $.ajax({
+                url: location.pathname + location.search,
+                type: 'post',
+                data: f.serialize(),
+                success: function (result) {
+                    var urlreport = '@(Url.Content("~/ReportViewer.aspx?rpt="))' + result.UrlReport;
+                    //alert(urlreport);
+                    window.open(urlreport);
+                }
+            });
+        });
+        return false;
+    });
+</script>

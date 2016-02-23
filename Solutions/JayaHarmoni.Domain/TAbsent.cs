@@ -14,13 +14,13 @@ namespace JayaHarmoni.Domain
         [DomainSignature]
         public virtual TProject ProjectId { get; set; }
         public virtual MEquip EquipId { get; set; }
-        public virtual string AbsentPeriod { get; set; }
+        public virtual System.DateTime? AbsentPeriod { get; set; }
         public virtual string AbsentLocation { get; set; }
         public virtual string AbsentSupervisor { get; set; }
         public virtual string AbsentAdmin { get; set; }
         public virtual decimal? AbsentTotalQty { get; set; }
         public virtual decimal? AbsentTotalResult { get; set; }
-        public virtual string AbsentTotalBbm { get; set; }
+        public virtual decimal? AbsentTotalBbm { get; set; }
         public virtual string AbsentStatus { get; set; }
         public virtual string AbsentDesc { get; set; }
 

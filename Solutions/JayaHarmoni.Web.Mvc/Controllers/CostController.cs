@@ -113,5 +113,17 @@ namespace JayaHarmoni.Web.Mvc.Controllers
         };
 
         }
+
+        public JsonResult PopulateCosts()
+        {
+            var list = from cost in _costTasks.GetListNotDeleted()
+                       select new
+                       {
+                           Id = cost.Id,
+                           CostName = cost.CostName
+                       };
+            ViewData["costs"] = list;
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

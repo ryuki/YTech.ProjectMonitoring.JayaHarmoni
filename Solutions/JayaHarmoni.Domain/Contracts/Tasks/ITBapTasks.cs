@@ -13,5 +13,11 @@ namespace JayaHarmoni.Domain.Contracts.Tasks
         TBap Delete(TBap entity);
         TBap One(string id);
         IEnumerable<TBap> GetListNotDeleted();
+
+        IEnumerable<TBap> GetListNotDeleted(string ParentProjectId);
+
+        IEnumerable<object> GetListResultBapAndAbsent(string ParentProjectId);
+
+        IEnumerable<TBap> GetListByProjectAndPeriod(string ParentProjectId, DateTime? period);
     }
 }

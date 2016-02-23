@@ -14,9 +14,9 @@ namespace JayaHarmoni.Domain
         [DomainSignature]
         public virtual string OwnerName { get; set; }
         public virtual MEquip EquipId { get; set; }
-        public virtual string OwnerPercent { get; set; }
-        public virtual string OwnerSinceDate { get; set; }
-        public virtual string OwnerUntilDate { get; set; }
+        public virtual decimal? OwnerPercent { get; set; }
+        public virtual DateTime? OwnerSinceDate { get; set; }
+        public virtual DateTime? OwnerUntilDate { get; set; }
         public virtual string OwnerStatus { get; set; }
         public virtual string OwnerDesc { get; set; }
 

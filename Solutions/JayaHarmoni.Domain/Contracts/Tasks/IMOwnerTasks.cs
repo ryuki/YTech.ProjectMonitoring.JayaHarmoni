@@ -13,5 +13,7 @@ namespace JayaHarmoni.Domain.Contracts.Tasks
         MOwner Delete(MOwner entity);
         MOwner One(string id);
         IEnumerable<MOwner> GetListNotDeleted();
+
+        IEnumerable<MOwner> GetListNotDeleted(string ParentEquipId);
     }
 }

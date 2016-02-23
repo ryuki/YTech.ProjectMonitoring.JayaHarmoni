@@ -17,9 +17,11 @@ namespace JayaHarmoni.Web.Mvc.Controllers
     public partial class EquipController : Controller
     {
         private readonly IMEquipTasks _equipTasks;
-        public EquipController(IMEquipTasks equipTasks)
+        private readonly IMOwnerTasks _MOwnerTasks;
+        public EquipController(IMEquipTasks equipTasks, IMOwnerTasks MOwnerTasks)
         {
             this._equipTasks = equipTasks;
+            this._MOwnerTasks = MOwnerTasks;
         }
 
         [Authorize(Roles = "ADMINISTRATOR, SUPERVISOR, CS")]
@@ -118,6 +120,18 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             EquipBuyDate = cust.EquipBuyDate
         };
 
+        }
+
+        public JsonResult PopulateEquips()
+        {
+            var list = from equip in _equipTasks.GetListNotDeleted()
+                            select new
+                            {
+                                Id = equip.Id,
+                                EquipName = equip.EquipName
+                            };
+            ViewData["equips"] = list;
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

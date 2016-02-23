@@ -120,5 +120,16 @@ namespace JayaHarmoni.Web.Mvc.Controllers
 
         }
 
+        public JsonResult PopulateEmployees()
+        {
+            var list = from emp in _employeeTasks.GetListNotDeleted()
+                       select new
+                       {
+                           Id = emp.Id,
+                           EmployeeName = emp.EmployeeName
+                       };
+            ViewData["employees"] = list;
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

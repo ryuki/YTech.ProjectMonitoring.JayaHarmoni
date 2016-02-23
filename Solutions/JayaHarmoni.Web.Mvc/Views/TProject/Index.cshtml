@@ -1,7 +1,23 @@
 @{
-    ViewBag.Title = "TProject";
+    ViewBag.Title = "Daftar Proyek";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (false)
+{ <script src="@Url.Content("~/Scripts/jquery-1.9.1-vsdoc.js")" type="text/javascript"></script> }
+
+<style type="text/css">
+    .k-Print {
+        background-image: url('Content/img/rtg_print.gif');
+    }
+
+    .k-Mutation {
+        background-image: url('Content/img/window16.gif');
+    }
+
+    .k-SPart {
+        background-image: url('Content/img/generic_link_16.png');
+    }
+</style>
 
 @(Html.Kendo()
 .Grid<JayaHarmoni.Web.Mvc.Controllers.ViewModels.TProjectViewModel>()
@@ -9,6 +25,8 @@
     .Columns(columns =>
     {
         columns.Bound(p => p.ProjectName).Width("auto");
+        columns.Bound(p => p.CustomerId).Width("auto").ClientTemplate("#:CustomerName#");
+        columns.Bound(p => p.ProjectSpkNo).Width("auto");
         columns.Bound(p => p.ProjectDate).Width("auto").Format("{0:dd-MMM-yyyy}");
         columns.Bound(p => p.ProjectPrice).Width("auto").Format("{0:N2}");
         columns.Bound(p => p.ProjectRetention).Width("auto").Format("{0:N2}");
@@ -18,9 +36,39 @@
         columns.Bound(p => p.ProjectFinishDate).Width("auto").Format("{0:dd-MMM-yyyy}");
         columns.Bound(p => p.ProjectStatus).Width("auto");
         columns.Bound(p => p.ProjectDesc).Width("auto");
-        columns.Command(command => { command.Edit().Text(" "); command.Destroy().Text(" "); }).Width("auto");
+        columns.Command(command => {
+            command.Custom("ProjectWork").Click("OpenProjectWork").HtmlAttributes(new { style = "min-width:20px;" }).Text("Pekerjaan");
+            command.Edit().Text(" "); 
+            command.Destroy().Text(" "); 
+        }).Width("auto");
     })
-    .ToolBar(toolbar => { toolbar.Create().Text("Tambah TProject Baru"); })
+    .ToolBar(toolbar =>
+    {
+        toolbar.Template(@<text>
+<div class="k-toolbar k-grid-toolbar k-grid-top">
+    <a class="k-button k-button-icontext k-grid-add" href="/TProject/TProject_Read?Grid-mode=insert"><span class="k-icon k-add"></span>Tambah Proyek Baru</a>
+
+   @* <label class="status-label" for="status">Filter status Proyek :</label>
+    @(Html.Kendo().DropDownList()
+                            .Name("status")
+                            .OptionLabel("All")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .AutoBind(false)
+                            .Events(e => e.Change("searchTProject"))
+                            .HtmlAttributes(new { style = "min-width:150px;" })
+                            .BindTo((System.Collections.IEnumerable)ViewData["wo_status"])
+                        )*@
+
+   @* <label class="search-label" for="search">Pencarian :</label>
+    @(Html.TextBox("search", "", new { @class = "k-textbox" }))
+    @(Html.Button("searchButton", "Cari", HtmlButtonType.Button, "searchWO(false);", new { @class = "k-button" }))
+    @(Html.Button("resetButton", "Reset", HtmlButtonType.Button, "searchWO(true);", new { @class = "k-button" })) | 
+    @Html.Partial("_CountDown")
+    @Html.Partial("ColourLegend")*@
+</div>
+</text>);
+    })
     .Editable(editable => editable.Mode(GridEditMode.PopUp).Window(win => win.Width(450)))
     .Pageable()
     .Sortable()
@@ -46,6 +94,21 @@
     )
     .Events(e => e.DataBound("onDataBound"))
     )
+
+@(Html.Kendo().Window()
+    .Name("ProjectWorkWindow")
+    .Title("Uraian Pekerjaan")
+     .Content(@<text>
+@Html.Partial("ProjectWork")
+</text>)
+    .Draggable()
+    .Resizable()
+    .Width(600)
+    .Height(450)
+    .Modal(true)
+    .Visible(false)
+)
+
 
 <script type="text/kendo-template" id="message">
 <div class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" style="margin: 0.5em; display: block; " data-for="#=field#" data-valmsg-for="#=field#" id="#=field#_validationMessage">
@@ -123,5 +186,21 @@
             });
             alert(message);
         }
+    }
+
+    function OpenProjectWork(e) {
+        e.preventDefault();
+
+        //set datasource for print WO
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var ProjectId = dataItem.ProjectId;
+        $("#ProjectId").val(ProjectId);
+        //alert(ProjectId);
+
+        var grid = $("#TWorkGrid").data("kendoGrid");
+        grid.dataSource.read();
+
+        $("#ProjectWorkWindow").data("kendoWindow").center();
+        $("#ProjectWorkWindow").data("kendoWindow").open();
     }
 </script>

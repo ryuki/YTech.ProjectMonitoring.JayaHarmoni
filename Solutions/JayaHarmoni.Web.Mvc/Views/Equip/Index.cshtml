@@ -12,7 +12,11 @@
         columns.Bound(p => p.EquipType).Width("auto");
         columns.Bound(p => p.EquipBrand).Width("auto");
         columns.Bound(p => p.EquipBuyDate).Format("{0:dd-MMM-yyyy}").Width("auto");
-        columns.Command(command => { command.Edit().Text(" "); command.Destroy().Text(" "); }).Width("auto");
+        columns.Command(command =>
+        {
+            command.Custom("Owner").Click("OpenOwner").HtmlAttributes(new { style = "min-width:20px;" }).Text("Pemilik Alat");
+            command.Edit().Text(" "); 
+            command.Destroy().Text(" "); }).Width("auto");
     })
     .ToolBar(toolbar => { toolbar.Create().Text("Tambah Alat Baru"); })
     .Editable(editable => editable.Mode(GridEditMode.PopUp).Window(win => win.Width(450)))
@@ -40,6 +44,20 @@
     )
     .Events(e => e.DataBound("onDataBound"))
     )
+
+@(Html.Kendo().Window()
+    .Name("OwnerWindow")
+    .Title("Pemilik Alat")
+     .Content(@<text>
+@Html.Partial("Owner")
+</text>)
+    .Draggable()
+    .Resizable()
+    .Width(600)
+    .Height(450)
+    .Modal(true)
+    .Visible(false)
+)
 
 <script type="text/kendo-template" id="message">
 <div class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" style="margin: 0.5em; display: block; " data-for="#=field#" data-valmsg-for="#=field#" id="#=field#_validationMessage">
@@ -117,5 +135,22 @@
             });
             alert(message);
         }
+    }
+
+
+    function OpenOwner(e) {
+        e.preventDefault();
+
+        //set datasource for print WO
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var EquipId = dataItem.EquipID;
+        $("#EquipId").val(EquipId);
+        //alert(EquipId);
+
+        var grid = $("#OwnerGrid").data("kendoGrid");
+        grid.dataSource.read();
+
+        $("#OwnerWindow").data("kendoWindow").center();
+        $("#OwnerWindow").data("kendoWindow").open();
     }
 </script>

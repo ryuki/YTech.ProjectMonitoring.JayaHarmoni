@@ -1,0 +1,201 @@
+@{
+    ViewBag.Title = "Input Timesheet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (false)
+{ <script src="@Url.Content("~/Scripts/jquery-1.9.1-vsdoc.js")" type="text/javascript"></script> }
+
+<style type="text/css">
+    .k-Print {
+        background-image: url('Content/img/rtg_print.gif');
+    }
+
+    .k-Mutation {
+        background-image: url('Content/img/window16.gif');
+    }
+
+    .k-SPart {
+        background-image: url('Content/img/generic_link_16.png');
+    }
+</style>
+
+@(Html.Kendo()
+.Grid<JayaHarmoni.Web.Mvc.Controllers.ViewModels.TAbsentViewModel>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.ProjectName).Width("auto").Title("Proyek");
+        columns.Bound(p => p.AbsentLocation).Width("auto");
+        columns.Bound(p => p.AbsentPeriod).Width("auto").Format("{0:MMMM-yyyy}");
+        columns.Bound(p => p.EquipName).Width("auto").Title("Alat");
+        columns.Command(command => {
+            command.Custom("AbsentDet").Click("OpenAbsentDet").HtmlAttributes(new { style = "min-width:20px;" }).Text("Detail Timesheet");
+            command.Edit().Text(" "); 
+            command.Destroy().Text(" "); 
+        }).Width("auto");
+    })
+    .ToolBar(toolbar =>
+    {
+        toolbar.Template(@<text>
+<div class="k-toolbar k-grid-toolbar k-grid-top">
+    <a class="k-button k-button-icontext k-grid-add" href="/TProject/TProject_Read?Grid-mode=insert"><span class="k-icon k-add"></span>Tambah TimeSheet Baru</a>
+
+   @* <label class="status-label" for="status">Filter status Proyek :</label>
+    @(Html.Kendo().DropDownList()
+                            .Name("status")
+                            .OptionLabel("All")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .AutoBind(false)
+                            .Events(e => e.Change("searchTProject"))
+                            .HtmlAttributes(new { style = "min-width:150px;" })
+                            .BindTo((System.Collections.IEnumerable)ViewData["wo_status"])
+                        )*@
+
+   @* <label class="search-label" for="search">Pencarian :</label>
+    @(Html.TextBox("search", "", new { @class = "k-textbox" }))
+    @(Html.Button("searchButton", "Cari", HtmlButtonType.Button, "searchWO(false);", new { @class = "k-button" }))
+    @(Html.Button("resetButton", "Reset", HtmlButtonType.Button, "searchWO(true);", new { @class = "k-button" })) | 
+    @Html.Partial("_CountDown")
+    @Html.Partial("ColourLegend")*@
+</div>
+</text>);
+    })
+    .Editable(editable => editable.Mode(GridEditMode.PopUp).Window(win => win.Width(450)))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .ColumnMenu()
+    .Selectable()
+    .Filterable()
+    .Groupable()
+    .Resizable(resize => resize.Columns(true))
+    .Reorderable(reorder => reorder.Columns(true))
+    .HtmlAttributes(new { style = "height:500px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Batch(false)
+        .ServerOperation(false)
+        .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
+        .Model(model => model.Id(p => p.ProjectId))
+        .Create(create => create.Action("TAbsents_Create", "TProject"))
+        .Read(read => read.Action("TAbsents_Read", "TProject"))
+        .Update(update => update.Action("TAbsents_Update", "TProject"))
+        .Destroy(destroy => destroy.Action("TAbsents_Destroy", "TProject"))
+    )
+    .Events(e => e.DataBound("onDataBound"))
+    )
+
+@(Html.Kendo().Window()
+    .Name("AbsentDetWindow")
+    .Title("Detail Timesheet")
+     .Content(@<text>
+@Html.Partial("AbsentDet")
+</text>)
+    .Draggable()
+    .Resizable()
+    .Width(750)
+    .Height(550)
+    .Modal(true)
+    .Visible(false)
+)
+
+
+<script type="text/kendo-template" id="message">
+<div class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" style="margin: 0.5em; display: block; " data-for="#=field#" data-valmsg-for="#=field#" id="#=field#_validationMessage">
+            <span class="k-icon k-warning"> </span>#=message#<div class="k-callout k-callout-n"></div></div>
+</script>
+
+<script type="text/javascript">
+    function onRequestEnd(e) {
+        //RequestEnd handler code
+        //bug : error when update after insert new data, no id catched
+        //bug fix : refresh after insert new data, 
+        if (e.type === "create") {
+            //alert("onRequestEnd");
+            //check for errors in the response
+            if (e.response == null || e.response.Errors == null) {
+                //refresh grid if no errors
+                $('#Grid').data().kendoGrid.dataSource.read();
+            }
+        }
+    }
+
+    function onDataBound(e) {
+        //edit data when double click
+        $('#Grid tbody tr').dblclick(function () {
+            var grid = $('#Grid').data().kendoGrid;
+            grid.editRow(this);
+        })
+    }
+    jQuery(document).ready(function () {
+        //auto click add new customer when iframe = 1
+        if (getURLParameter("isModal") === "True") {
+            //$("a.k-grid-add").trigger("click");
+            setTimeout('$("a.k-grid-add").trigger("click");', 3000);
+        }
+    })
+
+    function getURLParameter(name) {
+        return decodeURI(
+            (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
+        );
+    }
+
+    //show server errors if any
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+
+            var grid = $('#Grid').data('kendoGrid');
+
+            grid.one("dataBinding", function (e) {
+                e.preventDefault();   // cancel grid rebind
+            });
+            //var gridElement = grid.editable.element;
+
+            //var validationMessageTemplate = kendo.template(
+            //    "<div id='#=field#_validationMessage' " +
+            //        "class='k-widget k-tooltip k-tooltip-validation " +
+            //            "k-invalid-msg field-validation-error' " +
+            //        "style='margin: 0.5em;' data-for='#=field#' " +
+            //        "data-val-msg-for='#=field#' role='alert'>" +
+            //        "<span class='k-icon k-warning'></span>" +
+            //        "#=message#" +
+            //        "<div class='k-callout k-callout-n'></div>" +
+            //    "</div>");
+
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                    //gridElement.find("[data-valmsg-for=" + key + "],[data-val-msg-for=" + key + "]")
+                    //.replaceWith(validationMessageTemplate({ field: key, message: value.errors[0] }));
+                    //gridElement.find("input[name=" + key + "]").focus();
+                }
+            });
+            alert(message);
+        }
+    }
+
+    function OpenAbsentDet(e) {
+        e.preventDefault();
+
+        //set datasource for print WO
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var AbsentId = dataItem.AbsentId;
+        $("#AbsentId").val(AbsentId);
+        //alert(AbsentId);
+        var ProjectId = dataItem.ProjectId;
+        $("#ProjectId").val(ProjectId);
+        //alert(ProjectId);
+
+        var grid = $("#AbsentDetGrid").data("kendoGrid");
+        grid.dataSource.read();
+
+        $("#AbsentDetWindow").data("kendoWindow").center();
+        $("#AbsentDetWindow").data("kendoWindow").open();
+    }
+</script>

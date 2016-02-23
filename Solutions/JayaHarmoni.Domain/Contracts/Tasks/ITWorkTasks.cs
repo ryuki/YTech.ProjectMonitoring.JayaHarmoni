@@ -13,5 +13,7 @@ namespace JayaHarmoni.Domain.Contracts.Tasks
         TWork Delete(TWork entity);
         TWork One(string id);
         IEnumerable<TWork> GetListNotDeleted();
+
+        IEnumerable<TWork> GetListNotDeleted(string projectId);
     }
 }

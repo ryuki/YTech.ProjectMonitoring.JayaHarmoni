@@ -128,5 +128,16 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             return Content(cust.Id);
         }
 
+        public JsonResult PopulateCustomers()
+        {
+            var customers = from cust in _customerTasks.GetListNotDeleted()
+                            select new
+                                    {
+                                        Id = cust.Id,
+                                        CustomerName = cust.CustomerName + " - " + cust.CustomerPhone
+                                    };
+            ViewData["customers"] = customers;
+            return Json(customers, JsonRequestBehavior.AllowGet);
+        }
     }
 }

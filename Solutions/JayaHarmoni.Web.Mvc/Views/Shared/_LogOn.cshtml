@@ -1,4 +1,11 @@
-﻿@if (Request.IsAuthenticated) {
+﻿
+    <div style="float:left;padding-left:10px;">
+        <h3>
+            SIMP Jaya Harmoni v0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+        @System.DateTime.Today.ToString("dd-MMM-yyyy")
+            </h3>
+        </div>
+@if (Request.IsAuthenticated) {
     <div style="float:right;padding-right:10px;">
         <h3>
         @Html.ActionLink("Selamat Datang [" + User.Identity.Name + "]", "ChangePassword", "Account", null, new { @class = "username" }) |

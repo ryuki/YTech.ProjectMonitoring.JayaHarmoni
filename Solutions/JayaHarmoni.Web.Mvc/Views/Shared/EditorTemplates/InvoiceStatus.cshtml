@@ -1,0 +1,15 @@
+@model string
+
+@(Html.Kendo().DropDownListFor(m => m)
+        .OptionLabel("-Pilih Status Invoice-")
+        .DataValueField("Value")
+        .DataTextField("Text") 
+         .HtmlAttributes(new { @style="width:200px;" })
+         .AutoBind(false)
+         .DataSource(source => {
+              source.Read(read =>
+              {
+                  read.Action("PopulateInvoiceStatus", "TInvoice");                  
+              });              
+          })
+)

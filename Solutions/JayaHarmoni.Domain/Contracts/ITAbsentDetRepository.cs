@@ -11,5 +11,7 @@ namespace JayaHarmoni.Domain.Contracts
     public interface ITAbsentDetRepository : INHibernateRepositoryWithTypedId<TAbsentDet, string>
     {
        IEnumerable<TAbsentDet> GetListNotDeleted();
+
+       IEnumerable<TAbsentDet> GetListNotDeleted(string AbsentId);
     }
 }

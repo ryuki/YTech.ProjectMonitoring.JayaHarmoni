@@ -1,0 +1,8 @@
+@model DateTime?
+
+@*@(Html.Kendo().DateTimePickerFor(m => m))*@
+@(Html.Kendo().DatePickerFor(m => m)
+.Depth(CalendarView.Year)
+.Start(CalendarView.Year)
+.Format("MMMM-yyyy")
+)

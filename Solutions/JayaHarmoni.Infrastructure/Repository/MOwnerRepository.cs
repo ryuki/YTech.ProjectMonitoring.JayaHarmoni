@@ -17,6 +17,15 @@ namespace JayaHarmoni.Infrastructure.Repository
            ICriteria criteria = Session.CreateCriteria(typeof(MOwner));
            criteria.Add(Expression.Not(Expression.Eq("DataStatus", "Deleted")));
            return criteria.List<MOwner>();
-       } 
+       }
+
+
+       public IEnumerable<MOwner> GetListNotDeleted(string ParentEquipId)
+       {
+           ICriteria criteria = Session.CreateCriteria(typeof(MOwner));
+           criteria.Add(Expression.Not(Expression.Eq("DataStatus", "Deleted")));
+           criteria.Add(Expression.Eq("EquipId.Id", ParentEquipId));
+           return criteria.List<MOwner>();
+       }
     }
 }

@@ -86,6 +86,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\lib\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ReferencedAssemblies\ASP.NET MVC\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -170,19 +183,40 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MJobControllers.cs" />
+    <Compile Include="Controllers\EquipController.Owner.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RouteRegistrar.cs" />
+    <Compile Include="Controllers\TBapControllers.cs" />
+    <Compile Include="Controllers\TInvoiceControllers.cs" />
+    <Compile Include="Controllers\TProjectControllers.Absent.cs" />
     <Compile Include="Controllers\TProjectControllers.cs" />
+    <Compile Include="Controllers\TProjectCostControllers.cs" />
     <Compile Include="Controllers\ViewModels\AccountViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\MOwnerViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\ReportsViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\ResultBapAndAbsentViewModel.cs" />
     <Compile Include="Controllers\ViewModels\CostViewModel.cs" />
     <Compile Include="Controllers\ViewModels\EquipViewModel.cs" />
     <Compile Include="Controllers\ViewModels\JobViewModel.cs" />
     <Compile Include="Controllers\ViewModels\EmployeeViewModel.cs" />
     <Compile Include="Controllers\ViewModels\CustomerViewModel.cs" />
     <Compile Include="Controllers\ViewModels\MJobViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\TAbsentDetViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\TAbsentViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\TBapViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\TInvoiceViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\TProjectCostViewModel.cs" />
     <Compile Include="Controllers\ViewModels\TProjectViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\TWorkViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ReportViewer.aspx.cs">
+      <DependentUpon>ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer.aspx.designer.cs">
+      <DependentUpon>ReportViewer.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -339,7 +373,11 @@
     <Content Include="Content\js\jquery-1.6.1-vsdoc.js" />
     <Content Include="Content\js\jquery-1.6.1.js" />
     <Content Include="Content\js\modernizr-1.7.js" />
+    <None Include="Properties\PublishProfiles\jayaharmoni - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\jayaharmoni - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.9.1-vsdoc.js" />
+    <Content Include="ReportViewer.aspx" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\kendo.modernizr.custom.js" />
     <Content Include="Scripts\kendo\2013.1.514\jquery.min.js" />
@@ -463,9 +501,32 @@
     <Content Include="Views\Job\Index.cshtml" />
     <Content Include="Views\Equip\Index.cshtml" />
     <Content Include="Views\Cost\Index.cshtml" />
-    <Content Include="Views\MJob\Index.cshtml" />
     <Content Include="Views\TProject\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Customer.cshtml" />
+    <Content Include="Views\TProject\ProjectWork.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Job.cshtml" />
+    <Content Include="Views\TProject\ProjectAbsent.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Project.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Period.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Equip.cshtml" />
+    <Content Include="Views\TProject\AbsentDet.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Employee.cshtml" />
+    <Content Include="Views\TBap\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Work.cshtml" />
+    <Content Include="Views\TBap\ResultBapAndAbsent.cshtml" />
+    <Content Include="Views\TInvoice\Index.cshtml" />
+    <Content Include="Views\Equip\Owner.cshtml" />
+    <Content Include="Views\TProjectCost\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Cost.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\InvoiceStatus.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JayaHarmoni.Domain\JayaHarmoni.Domain.csproj">
@@ -486,7 +547,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NHibernate.config" />
+    <None Include="NHibernate.config.xxx">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Queries\" />
@@ -494,6 +557,9 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Reports\RptPrintInvoice.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

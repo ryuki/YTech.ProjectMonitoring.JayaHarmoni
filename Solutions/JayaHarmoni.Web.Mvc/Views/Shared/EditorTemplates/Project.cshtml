@@ -1,0 +1,16 @@
+@model object
+
+@(Html.Kendo().DropDownListFor(m => m)
+        .OptionLabel("-Pilih Proyek-")
+        .DataValueField("Id")
+        .DataTextField("ProjectName")
+        //.BindTo((System.Collections.IEnumerable)ViewData["customers"])
+         .HtmlAttributes(new { @style="width:200px;" })
+         .AutoBind(false)
+         .DataSource(source => {
+              source.Read(read =>
+              {
+                  read.Action("PopulateProjects", "TProject");                  
+              });              
+          })
+)

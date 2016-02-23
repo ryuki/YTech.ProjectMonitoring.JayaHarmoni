@@ -11,5 +11,7 @@ namespace JayaHarmoni.Domain.Contracts
     public interface ITWorkRepository : INHibernateRepositoryWithTypedId<TWork, string>
     {
        IEnumerable<TWork> GetListNotDeleted();
+
+       IEnumerable<TWork> GetListNotDeleted(string projectId);
     }
 }

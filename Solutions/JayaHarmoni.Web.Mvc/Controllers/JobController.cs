@@ -117,5 +117,17 @@ namespace JayaHarmoni.Web.Mvc.Controllers
         };
 
         }
+
+        public JsonResult PopulateJobs()
+        {
+            var list = from job in _jobTasks.GetListNotDeleted()
+                       select new
+                       {
+                           Id = job.Id,
+                           JobName = job.JobName
+                       };
+            ViewData["jobs"] = list;
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }
