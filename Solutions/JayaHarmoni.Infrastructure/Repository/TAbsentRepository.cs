@@ -17,6 +17,18 @@ namespace JayaHarmoni.Infrastructure.Repository
            ICriteria criteria = Session.CreateCriteria(typeof(TAbsent));
            criteria.Add(Expression.Not(Expression.Eq("DataStatus", "Deleted")));
            return criteria.List<TAbsent>();
-       } 
+       }
+
+
+       public IEnumerable<TAbsent> GetListByProjectAndPeriod(string ProjectId, DateTime? RptPeriod)
+       {
+           ICriteria criteria = Session.CreateCriteria(typeof(TAbsent));
+           criteria.Add(Expression.Not(Expression.Eq("DataStatus", "Deleted")));
+           criteria.Add(Expression.Eq("ProjectId.Id", ProjectId));
+           criteria.Add(Expression.Eq("AbsentPeriod", RptPeriod));
+           criteria.SetFetchMode("EquipId", FetchMode.Eager);
+           criteria.SetFetchMode("ProjectId", FetchMode.Eager);
+           return criteria.List<TAbsent>();
+       }
     }
 }

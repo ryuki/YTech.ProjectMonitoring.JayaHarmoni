@@ -12,14 +12,14 @@
     {
         columns.Bound(p => p.AbsentDetDate).Width("auto").Format("{0:dd-MMM}");
         columns.Bound(p => p.AbsentDetOperator).Width("auto").ClientTemplate("#:AbsentDetOperatorName#");
-        columns.Bound(p => p.AbsentDetSinso).Width("auto").ClientTemplate("#:AbsentDetSinsoName#");
-        columns.Bound(p => p.AbsentDetStart).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.AbsentDetEnd).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.AbsentDetQty).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.AbsentDetBlock).Width("auto");
+        columns.Bound(p => p.AbsentDetSinso).Width("80px").ClientTemplate("#:AbsentDetSinsoName#");
+        columns.Bound(p => p.AbsentDetStart).Width("80px").Format("{0:N2}");
+        columns.Bound(p => p.AbsentDetEnd).Width("80px").Format("{0:N2}");
+        columns.Bound(p => p.AbsentDetQty).Width("80px").Format("{0:N2}").Title("Jam Kerja Jumlah");
+        columns.Bound(p => p.AbsentDetBlock).Width("150px");
         columns.Bound(p => p.WorkId).Width("auto").ClientTemplate("#:WorkName#");
-        columns.Bound(p => p.AbsentDetResult).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.AbsentDetBbm).Width("auto").Format("{0:N2}");
+        columns.Bound(p => p.AbsentDetResult).Width("80px").Format("{0:N2}");
+        columns.Bound(p => p.AbsentDetBbm).Width("80px").Format("{0:N2}");
         columns.Bound(p => p.AbsentDetDesc).Width("auto");
         columns.Command(command => { command.Edit().Text(" "); }).Width("auto");
     })

@@ -11,7 +11,8 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
 {
     public class EquipViewModel
     {
-        [ScaffoldColumn(false)]
+        [ScaffoldColumn(true)]
+        [DisplayName("Kode Alat")]
         public string EquipID
         {
             get;

@@ -18,6 +18,7 @@ namespace JayaHarmoni.Domain
 
         public virtual string ProjectName { get; set; }
         public virtual string ProjectSpkNo { get; set; }
+        public virtual string ProjectInvoiceFormat { get; set; }
         public virtual System.DateTime? ProjectDate { get; set; }
         public virtual decimal? ProjectPrice { get; set; }
         public virtual decimal? ProjectRetention { get; set; }

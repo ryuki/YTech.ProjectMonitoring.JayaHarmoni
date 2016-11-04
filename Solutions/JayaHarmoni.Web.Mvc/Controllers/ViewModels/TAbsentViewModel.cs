@@ -58,8 +58,14 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         public virtual decimal? AbsentTotalResult { get; set; }
         
         [DisplayName("Total BBM")]
-        public virtual decimal? AbsentTotalBbm { get; set; }        
+        public virtual decimal? AbsentTotalBbm { get; set; }
 
+        #region  property for reports only
+        [HiddenInput]
+        [ReadOnly(true)]
+        [DisplayName(" ")]
+        public string EquipBrand { get; set; }
+        #endregion
         #endregion
     }
 }

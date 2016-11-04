@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JayaHarmoni.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,11 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         {
             RptDateFrom = DateTime.Today.AddDays(-7);
             RptDateTo = DateTime.Today;
+
+            ShowDateFrom = false;
+            ShowDateTo = false;
+            ShowPeriod = false;
+            ShowProject = false;   
         }
 
         public string Title
@@ -44,6 +50,34 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         }
 
         public bool ShowDateTo
+        {
+            get;
+            set;
+        }
+
+        [DisplayName("Periode")]
+        [UIHint("Period")]
+        public DateTime? RptPeriod
+        {
+            get;
+            set;
+        }
+
+        public bool ShowPeriod
+        {
+            get;
+            set;
+        }
+
+        [DisplayName("Proyek")]
+        [UIHint("Project")]
+        public string ProjectId
+        {
+            get;
+            set;
+        }
+
+        public bool ShowProject
         {
             get;
             set;

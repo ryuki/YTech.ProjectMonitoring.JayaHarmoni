@@ -34,12 +34,13 @@
         columns.Bound(p => p.ProjectStartDate).Width("auto").Format("{0:dd-MMM-yyyy}");
         columns.Bound(p => p.ProjectEndDate).Width("auto").Format("{0:dd-MMM-yyyy}");
         columns.Bound(p => p.ProjectFinishDate).Width("auto").Format("{0:dd-MMM-yyyy}");
-        columns.Bound(p => p.ProjectStatus).Width("auto");
-        columns.Bound(p => p.ProjectDesc).Width("auto");
-        columns.Command(command => {
+        //columns.Bound(p => p.ProjectStatus).Width("auto");
+        //columns.Bound(p => p.ProjectDesc).Width("auto");
+        columns.Command(command =>
+        {
             command.Custom("ProjectWork").Click("OpenProjectWork").HtmlAttributes(new { style = "min-width:20px;" }).Text("Pekerjaan");
-            command.Edit().Text(" "); 
-            command.Destroy().Text(" "); 
+            command.Edit().Text(" ");
+            command.Destroy().Text(" ");
         }).Width("auto");
     })
     .ToolBar(toolbar =>
@@ -48,7 +49,7 @@
 <div class="k-toolbar k-grid-toolbar k-grid-top">
     <a class="k-button k-button-icontext k-grid-add" href="/TProject/TProject_Read?Grid-mode=insert"><span class="k-icon k-add"></span>Tambah Proyek Baru</a>
 
-   @* <label class="status-label" for="status">Filter status Proyek :</label>
+    @* <label class="status-label" for="status">Filter status Proyek :</label>
     @(Html.Kendo().DropDownList()
                             .Name("status")
                             .OptionLabel("All")
@@ -60,7 +61,7 @@
                             .BindTo((System.Collections.IEnumerable)ViewData["wo_status"])
                         )*@
 
-   @* <label class="search-label" for="search">Pencarian :</label>
+    @* <label class="search-label" for="search">Pencarian :</label>
     @(Html.TextBox("search", "", new { @class = "k-textbox" }))
     @(Html.Button("searchButton", "Cari", HtmlButtonType.Button, "searchWO(false);", new { @class = "k-button" }))
     @(Html.Button("resetButton", "Reset", HtmlButtonType.Button, "searchWO(true);", new { @class = "k-button" })) | 
@@ -145,6 +146,26 @@
         }
     })
 
+    $(function () {
+        $("#WorkQty").kendoNumericTextBox({
+            change: CalculateWorkTotal
+        });
+        $("#WorkPrice").kendoNumericTextBox({
+            change: CalculateWorkTotal
+        });
+
+        //var WorkQty = $("#WorkQty").data("kendoNumericTextBox");
+        //WorkQty.bind("change", function () {
+        //    CalculateWorkTotal();
+        //});
+        //var WorkPrice = $("#WorkPrice").data("kendoNumericTextBox");
+        //WorkPrice.bind("change", function () {
+        //    CalculateWorkTotal();
+        //});
+        //var WorkTotal = $("#WorkTotal");
+        //WorkTotal.prop('readonly', true);
+    })
+
     function getURLParameter(name) {
         return decodeURI(
             (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
@@ -202,5 +223,17 @@
 
         $("#ProjectWorkWindow").data("kendoWindow").center();
         $("#ProjectWorkWindow").data("kendoWindow").open();
+    }
+
+    function CalculateWorkTotal() {
+        alert("tesT");
+        var qty = $('#WorkQty').data('kendoNumericTextBox').value();
+        var price = $('#WorkPrice').data('kendoNumericTextBox').value();
+        var total = qty * price;
+        $('#WorkTotal').data('kendoNumericTextBox').value(total);
+
+        alert(qty);
+        alert(price);
+        alert(total);
     }
 </script>

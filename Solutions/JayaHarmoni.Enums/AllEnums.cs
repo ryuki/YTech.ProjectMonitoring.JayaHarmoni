@@ -23,6 +23,22 @@ namespace JayaHarmoni.Enums
         RptMasterCustomer,
         RptMasterEmp,
         RptMasterEquip,
-        RptPrintInvoice
+        RptPrintInvoice_Pph,
+        RptPrintInvoice_Pph_Ppn,
+        RptAbsentDetail,
+        RptProjectByEquipResult,
+        RptSalary
+    }
+
+    public enum EnumInvoiceFormat
+    {
+        PPH,
+        PPH_PPN
+    }
+
+    public enum EnumWorkRetentionStatus
+    {
+        Tidak_Dihitung,
+        Dihitung
     }
 }

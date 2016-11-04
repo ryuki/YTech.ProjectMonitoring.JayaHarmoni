@@ -15,7 +15,7 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
             mapping.DynamicInsert();
             mapping.SelectBeforeUpdate();
 
-            mapping.Table("dbo.M_JOB");
+            mapping.Table("M_JOB");
             mapping.Id(x => x.Id, "JOB_ID")
                  .GeneratedBy.Assigned();
 

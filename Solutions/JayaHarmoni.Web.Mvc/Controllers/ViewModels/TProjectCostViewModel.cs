@@ -48,16 +48,20 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         public string CostName { get; set; }
         
         [DisplayName("Tanggal")]
-        public virtual System.DateTime? ProjectCostDate { get; set; }
+        public System.DateTime? ProjectCostDate { get; set; }
         
         [DisplayName("Kuantitas")]
-        public virtual decimal? ProjectCostQty { get; set; }
-        
-        [DisplayName("Total")]
-        public virtual decimal? ProjectCostTotal { get; set; }
+        public decimal? ProjectCostQty { get; set; }
+
+        [DisplayName("Harga")]
+        public decimal? ProjectCostPrice { get; set; }
+
+        [DisplayName(" ")]
+        [HiddenInput]
+        public decimal? ProjectCostTotal { get; set; }
         
         [DisplayName("Keterangan")]
-        public virtual string ProjectCostDesc { get; set; }
+        public string ProjectCostDesc { get; set; }
         
 
         #endregion

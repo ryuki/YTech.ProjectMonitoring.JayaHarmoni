@@ -32,14 +32,19 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         [DisplayName(" ")]
         [HiddenInput()]
         public string JobName { get; set; }
+
+        [DisplayName("Status Rentensi")]
+        [UIHint("WorkRetentionStatus")]
+        public virtual string WorkRetentionStatus { get; set; }
         
         [DisplayName("Kuantitas")]
         public virtual decimal? WorkQty { get; set; }
         
         [DisplayName("Harga (Rp)")]
         public virtual decimal? WorkPrice { get; set; }
-        
-        [DisplayName("Total (Rp)")]
+
+        [DisplayName(" ")]
+        [HiddenInput]
         public virtual decimal? WorkTotal { get; set; }
         
         [DisplayName("Realisasi Kuantitas")]
@@ -47,7 +52,6 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         
         [DisplayName("Telah Dibayar")]
         public virtual decimal? WorkRealPaid { get; set; }
-        
         //[DisplayName("WorkStatus")]
         //public virtual string WorkStatus { get; set; }
         
@@ -56,5 +60,6 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         
 
         #endregion
+
     }
 }

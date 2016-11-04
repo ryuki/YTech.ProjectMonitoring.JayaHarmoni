@@ -10,9 +10,10 @@
     .Columns(columns =>
     {
         columns.Bound(p => p.JobId).Width("auto").ClientTemplate("#:JobName#");
+        columns.Bound(p => p.WorkRetentionStatus).Width("auto");
         columns.Bound(p => p.WorkQty).Width("auto").Format("{0:N2}");
         columns.Bound(p => p.WorkPrice).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.WorkTotal).Width("auto").Format("{0:N2}");
+        columns.Bound(p => p.WorkTotal).Width("auto").Format("{0:N2}").Title("Total (Rp)");
         columns.Bound(p => p.WorkRealQty).Width("auto").Format("{0:N2}");
         columns.Bound(p => p.WorkRealPaid).Width("auto").Format("{0:N2}");
         columns.Command(command => { command.Edit().Text(" "); command.Destroy().Text(" "); }).Width("auto");

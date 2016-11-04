@@ -64,6 +64,8 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             cust.EmployeePhone = custVM.EmployeePhone;
             cust.EmployeeAddress = custVM.EmployeeAddress;
             cust.EmployeeJoinDate = custVM.EmployeeJoinDate;
+            cust.EmployeeBasicSalary = custVM.EmployeeBasicSalary;
+            cust.EmployeeDailyAllowance = custVM.EmployeeDailyAllowance;
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -115,7 +117,9 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             EmployeeName = cust.EmployeeName,
             EmployeePhone = cust.EmployeePhone,
             EmployeeAddress = cust.EmployeeAddress,
-            EmployeeJoinDate = cust.EmployeeJoinDate
+            EmployeeJoinDate = cust.EmployeeJoinDate,
+            EmployeeBasicSalary = cust.EmployeeBasicSalary,
+            EmployeeDailyAllowance = cust.EmployeeDailyAllowance
         };
 
         }

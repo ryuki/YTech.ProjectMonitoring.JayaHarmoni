@@ -52,17 +52,17 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         [DisplayName("Tanggal Invoice Dibayar")]
         public virtual System.DateTime? InvoicePaidDate { get; set; }
 
-        [DisplayName("Nilai Invoice")]
-        public virtual decimal? InvoiceValue { get; set; }
+        //[DisplayName("Nilai Invoice")]
+        //public virtual decimal? InvoiceValue { get; set; }
 
-        [DisplayName("Retensi")]
-        public virtual decimal? InvoiceRetention { get; set; }
+        //[DisplayName("Retensi")]
+        //public virtual decimal? InvoiceRetention { get; set; }
 
-        [DisplayName("PPN")]
-        public virtual decimal? InvoicePpn { get; set; }
+        //[DisplayName("PPN")]
+        //public virtual decimal? InvoicePpn { get; set; }
 
-        [DisplayName("Total")]
-        public virtual decimal? InvoiceTotal { get; set; }
+        //[DisplayName("Total")]
+        //public virtual decimal? InvoiceTotal { get; set; }
 
         #region  property for reports only
         [HiddenInput]

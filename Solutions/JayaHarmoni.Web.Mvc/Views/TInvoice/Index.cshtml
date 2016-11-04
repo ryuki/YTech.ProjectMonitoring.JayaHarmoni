@@ -17,10 +17,10 @@
         columns.Bound(p => p.InvoiceDate).Width("auto").Format("{0:dd-MMM-yyyy}");
         columns.Bound(p => p.InvoiceLastStatus).Width("auto");
         columns.Bound(p => p.InvoicePaidDate).Width("auto").Format("{0:dd-MMM-yyyy}");
-        columns.Bound(p => p.InvoiceValue).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.InvoiceRetention).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.InvoicePpn).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.InvoiceTotal).Width("auto").Format("{0:N2}");
+        //columns.Bound(p => p.InvoiceValue).Width("auto").Format("{0:N2}");
+        //columns.Bound(p => p.InvoiceRetention).Width("auto").Format("{0:N2}");
+        //columns.Bound(p => p.InvoicePpn).Width("auto").Format("{0:N2}");
+        //columns.Bound(p => p.InvoiceTotal).Width("auto").Format("{0:N2}");
         columns.Command(command =>
         {
             command.Custom("Print").Click("OpenPrintInvoice").HtmlAttributes(new { style = "min-width:20px;" }).Text("Cetak Invoice");

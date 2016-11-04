@@ -17,7 +17,7 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
             mapping.DynamicInsert();
             mapping.SelectBeforeUpdate();
 
-            mapping.Table("[dbo].[T_PROJECT]");
+            mapping.Table("[T_PROJECT]");
             mapping.Id(x => x.Id, "[PROJECT_ID]")
                  .GeneratedBy.Assigned();
 
@@ -25,6 +25,7 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
 
             mapping.Map(x => x.ProjectName, "[PROJECT_NAME]");
             mapping.Map(x => x.ProjectSpkNo, "[PROJECT_SPK_NO]");
+            mapping.Map(x => x.ProjectInvoiceFormat, "[PROJECT_INVOICE_FORMAT]");
             mapping.Map(x => x.ProjectDate, "[PROJECT_DATE]");
             mapping.Map(x => x.ProjectPrice, "[PROJECT_PRICE]");
             mapping.Map(x => x.ProjectRetention, "[PROJECT_RETENTION]");

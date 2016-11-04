@@ -71,10 +71,10 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             entity.InvoiceDate = vm.InvoiceDate;
             entity.InvoiceLastStatus = vm.InvoiceLastStatus;
             entity.InvoicePaidDate = vm.InvoicePaidDate;
-            entity.InvoiceValue = vm.InvoiceValue;
-            entity.InvoiceRetention = vm.InvoiceRetention;
-            entity.InvoicePpn = vm.InvoicePpn;
-            entity.InvoiceTotal = vm.InvoiceTotal;
+            //entity.InvoiceValue = vm.InvoiceValue;
+            //entity.InvoiceRetention = vm.InvoiceRetention;
+            //entity.InvoicePpn = vm.InvoicePpn;
+            //entity.InvoiceTotal = vm.InvoiceTotal;
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -132,10 +132,10 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             InvoiceDate = entity.InvoiceDate,
             InvoiceLastStatus = entity.InvoiceLastStatus,
             InvoicePaidDate = entity.InvoicePaidDate,
-            InvoiceValue = entity.InvoiceValue,
-            InvoiceRetention = entity.InvoiceRetention,
-            InvoicePpn = entity.InvoicePpn,
-            InvoiceTotal = entity.InvoiceTotal,
+            //InvoiceValue = entity.InvoiceValue,
+            //InvoiceRetention = entity.InvoiceRetention,
+            //InvoicePpn = entity.InvoicePpn,
+            //InvoiceTotal = entity.InvoiceTotal,
             InvoiceId = entity.Id
         };
 

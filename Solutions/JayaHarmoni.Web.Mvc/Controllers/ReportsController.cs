@@ -23,7 +23,9 @@ namespace JayaHarmoni.Web.Mvc.Controllers
         private readonly ITInvoiceTasks _InvoiceTasks;
         private readonly ITProjectTasks _TProjectTasks;
         private readonly ITBapTasks _Baptasks;
-        public ReportsController(IMCustomerTasks customerTasks, ITBapTasks bapTasks, IMEmployeeTasks empTasks, IMEquipTasks equipTasks, ITInvoiceTasks _InvoiceTasks, ITProjectTasks _TProjectTasks, ITBapTasks _Baptasks)
+        private readonly ITAbsentTasks _absenTasks;
+        private readonly ITAbsentDetTasks _absenDetTasks;
+        public ReportsController(IMCustomerTasks customerTasks, ITBapTasks bapTasks, IMEmployeeTasks empTasks, IMEquipTasks equipTasks, ITInvoiceTasks _InvoiceTasks, ITProjectTasks _TProjectTasks, ITBapTasks _Baptasks, ITAbsentTasks _absenTasks, ITAbsentDetTasks _absenDetTasks)
         {
             this._bapTasks = bapTasks;
             this._customerTasks = customerTasks;
@@ -32,6 +34,8 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             this._InvoiceTasks = _InvoiceTasks;
             this._TProjectTasks = _TProjectTasks;
             this._Baptasks = _Baptasks;
+            this._absenTasks = _absenTasks;
+            this._absenDetTasks = _absenDetTasks;
         }
 
         [Authorize(Roles = "ADMINISTRATOR, SUPERVISOR, KASIR, TEKNISI")]
@@ -56,10 +60,19 @@ namespace JayaHarmoni.Web.Mvc.Controllers
                     rptVM.ShowDateFrom = false;
                     rptVM.ShowDateTo = false;
                     break;
-                case EnumReports.RptPrintInvoice:
+                case EnumReports.RptPrintInvoice_Pph:
                     rptVM.Title = "Cetak Invoice";
                     rptVM.ShowDateFrom = false;
                     rptVM.ShowDateTo = false;
+                    rptVM.ShowPeriod = true;
+                    rptVM.ShowProject = true;
+                    break;
+                case EnumReports.RptAbsentDetail:
+                    rptVM.Title = "Laporan Time Sheet";
+                    rptVM.ShowDateFrom = false;
+                    rptVM.ShowDateTo = false;
+                    rptVM.ShowPeriod = true;
+                    rptVM.ShowProject = true;
                     break;
             }
             return View(rptVM);
@@ -81,10 +94,16 @@ namespace JayaHarmoni.Web.Mvc.Controllers
                 case EnumReports.RptMasterEquip:
                     repCol[0] = GetEquips();
                     break;
-                case EnumReports.RptPrintInvoice:
+                case EnumReports.RptPrintInvoice_Pph:
                     repCol = new ReportDataSource[2];
-                    repCol[0] = GetInvoice();
-                    repCol[1] = GetBap();
+                    repCol[0] = GetInvoice(rptVM.ProjectId, rptVM.RptPeriod, ref rpt);
+                    repCol[1] = GetBap(rptVM.ProjectId, rptVM.RptPeriod);
+                    break;
+                case EnumReports.RptAbsentDetail:
+                    repCol = new ReportDataSource[1];
+                    repCol[0] = GetAbsentAll(rptVM.ProjectId, rptVM.RptPeriod);
+                    //repCol[0] = GetAbsent(rptVM.ProjectId, rptVM.RptPeriod);
+                    //repCol[1] = GetAbsentDetail(rptVM.ProjectId, rptVM.RptPeriod);
                     break;
             }
 
@@ -101,18 +120,123 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             return Json(e, JsonRequestBehavior.AllowGet);
         }
 
-        private ReportDataSource GetBap()
+        private ReportDataSource GetAbsentAll(string ProjectId, DateTime? RptPeriod)
         {
-            var baps = this._bapTasks.GetListNotDeleted();
+            var dets = this._absenDetTasks.GetListByProjectAndPeriod(ProjectId, RptPeriod);
+
+            var absentall = from entity in dets
+                            select new TAbsentAllViewModel
+                            {
+                                AbsentDetDate = entity.AbsentDetDate,
+                                AbsentDetStart = entity.AbsentDetStart,
+                                AbsentDetEnd = entity.AbsentDetEnd,
+                                AbsentDetQty = entity.AbsentDetQty,
+                                AbsentDetBlock = entity.AbsentDetBlock,
+                                AbsentDetResult = entity.AbsentDetResult,
+                                AbsentDetBbm = entity.AbsentDetBbm,
+                                AbsentDetDesc = entity.AbsentDetDesc,
+                                AbsentDetId = entity.Id,
+                                AbsentDetOperator = entity.AbsentDetOperator != null ? entity.AbsentDetOperator.Id : string.Empty,
+                                AbsentDetSinso = entity.AbsentDetSinso != null ? entity.AbsentDetSinso.Id : string.Empty,
+                                AbsentDetOperatorName = entity.AbsentDetOperator != null ? entity.AbsentDetOperator.EmployeeName : string.Empty,
+                                AbsentDetSinsoName = entity.AbsentDetSinso != null ? entity.AbsentDetSinso.EmployeeName : string.Empty,
+                                WorkId = entity.WorkId != null ? entity.WorkId.Id : string.Empty,
+                                WorkName = entity.WorkId != null ? entity.WorkId.JobId.JobName : string.Empty,
+                                AbsentPeriod = entity.AbsentId.AbsentPeriod,
+                                AbsentLocation = entity.AbsentId.AbsentLocation,
+                                AbsentSupervisor = entity.AbsentId.AbsentSupervisor,
+                                AbsentAdmin = entity.AbsentId.AbsentAdmin,
+                                AbsentTotalQty = entity.AbsentId.AbsentTotalQty,
+                                AbsentTotalResult = entity.AbsentId.AbsentTotalResult,
+                                AbsentTotalBbm = entity.AbsentId.AbsentTotalBbm,
+                                AbsentId = entity.AbsentId.Id,
+                                EquipId = entity.AbsentId.EquipId != null ? entity.AbsentId.EquipId.Id : string.Empty,
+                                EquipName = entity.AbsentId.EquipId != null ? entity.AbsentId.EquipId.EquipName : string.Empty,
+                                EquipBrand = entity.AbsentId.EquipId != null ? entity.AbsentId.EquipId.EquipBrand : string.Empty,
+                                ProjectId = entity.AbsentId.ProjectId != null ? entity.AbsentId.ProjectId.Id : string.Empty,
+                                ProjectName = entity.AbsentId.ProjectId != null ? entity.AbsentId.ProjectId.ProjectName : string.Empty
+
+                            };
+            ReportDataSource reportDataSource = new ReportDataSource("TAbsentAllViewModel", absentall);
+            return reportDataSource;
+        }
+
+        private ReportDataSource GetAbsentDetail(string ProjectId, DateTime? RptPeriod)
+        {
+            var dets = this._absenDetTasks.GetListByProjectAndPeriod(ProjectId, RptPeriod);
+            var result = from entity in dets
+                         select new TAbsentDetViewModel
+                         {
+                             AbsentDetDate = entity.AbsentDetDate,
+                             AbsentDetStart = entity.AbsentDetStart,
+                             AbsentDetEnd = entity.AbsentDetEnd,
+                             AbsentDetQty = entity.AbsentDetQty,
+                             AbsentDetBlock = entity.AbsentDetBlock,
+                             AbsentDetResult = entity.AbsentDetResult,
+                             AbsentDetBbm = entity.AbsentDetBbm,
+                             AbsentDetDesc = entity.AbsentDetDesc,
+                             AbsentDetId = entity.Id,
+                             AbsentDetOperator = entity.AbsentDetOperator != null ? entity.AbsentDetOperator.Id : string.Empty,
+                             AbsentDetSinso = entity.AbsentDetSinso != null ? entity.AbsentDetSinso.Id : string.Empty,
+                             AbsentDetOperatorName = entity.AbsentDetOperator != null ? entity.AbsentDetOperator.EmployeeName : string.Empty,
+                             AbsentDetSinsoName = entity.AbsentDetSinso != null ? entity.AbsentDetSinso.EmployeeName : string.Empty,
+                             WorkId = entity.WorkId != null ? entity.WorkId.Id : string.Empty,
+                             WorkName = entity.WorkId != null ? entity.WorkId.JobId.JobName : string.Empty
+                         };
+            ReportDataSource reportDataSource = new ReportDataSource("TAbsentDetViewModel", result);
+            return reportDataSource;
+        }
+
+        private ReportDataSource GetAbsent(string ProjectId, DateTime? RptPeriod)
+        {
+            var absents = this._absenTasks.GetListByProjectAndPeriod(ProjectId, RptPeriod);
+
+            var result = from entity in absents
+                         select new TAbsentViewModel
+              {
+                  AbsentPeriod = entity.AbsentPeriod,
+                  AbsentLocation = entity.AbsentLocation,
+                  AbsentSupervisor = entity.AbsentSupervisor,
+                  AbsentAdmin = entity.AbsentAdmin,
+                  AbsentTotalQty = entity.AbsentTotalQty,
+                  AbsentTotalResult = entity.AbsentTotalResult,
+                  AbsentTotalBbm = entity.AbsentTotalBbm,
+                  AbsentId = entity.Id,
+                  EquipId = entity.EquipId != null ? entity.EquipId.Id : string.Empty,
+                  EquipName = entity.EquipId != null ? entity.EquipId.EquipName : string.Empty,
+                  EquipBrand = entity.EquipId != null ? entity.EquipId.EquipBrand : string.Empty,
+                  ProjectId = entity.ProjectId != null ? entity.ProjectId.Id : string.Empty,
+                  ProjectName = entity.ProjectId != null ? entity.ProjectId.ProjectName : string.Empty
+              };
+
+            ReportDataSource reportDataSource = new ReportDataSource("TAbsentViewModel", result);
+            return reportDataSource;
+        }
+
+        private ReportDataSource GetBap(string ProjectId, DateTime? RptPeriod)
+        {
+            var baps = GetTBaps(ProjectId, RptPeriod);
             ReportDataSource reportDataSource = new ReportDataSource("TBapViewModel", baps);
             return reportDataSource;
         }
 
-        private ReportDataSource GetInvoice()
+        private ReportDataSource GetInvoice(string ProjectId, DateTime? RptPeriod, ref EnumReports rpt)
         {
-            var invoices = this._InvoiceTasks.GetListNotDeleted();
-            ReportDataSource reportDataSource = new ReportDataSource("TInvoiceViewModel", invoices);
-            return reportDataSource;
+            var invoices = this._InvoiceTasks.GetListByProjectAndPeriod(ProjectId, RptPeriod);
+            if (invoices.Count() > 0)
+            {
+                TInvoice inv = invoices.ToList()[0];
+                var results = ConvertToTInvoices(inv);
+                ReportDataSource reportDataSource = new ReportDataSource("TInvoiceViewModel", results);
+
+                //set rpt to print
+                if (inv.ProjectId.ProjectInvoiceFormat == EnumInvoiceFormat.PPH.ToString())
+                    rpt = EnumReports.RptPrintInvoice_Pph;
+                else if (inv.ProjectId.ProjectInvoiceFormat == EnumInvoiceFormat.PPH_PPN.ToString())
+                    rpt = EnumReports.RptPrintInvoice_Pph_Ppn;
+                return reportDataSource;
+            }
+            return null;
         }
 
         private ReportDataSource GetEquips()
@@ -141,7 +265,7 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             string msg = string.Empty;
             bool success = false;
             bool allowPrint = true;
-            EnumReports rptToPrint = EnumReports.RptPrintInvoice;
+            EnumReports rptToPrint = EnumReports.RptPrintInvoice_Pph;
             try
             {
                 ////get wo by wo id
@@ -165,8 +289,11 @@ namespace JayaHarmoni.Web.Mvc.Controllers
                 reportDataSource = new ReportDataSource("TBapViewModel", baps);
                 repCol[1] = reportDataSource;
 
-                ////save log
-                //SaveLog(wo, EnumWOLog.Print);
+                //set rpt to print
+                if (invoice.ProjectId.ProjectInvoiceFormat == EnumInvoiceFormat.PPH.ToString())
+                    rptToPrint = EnumReports.RptPrintInvoice_Pph;
+                else if (invoice.ProjectId.ProjectInvoiceFormat == EnumInvoiceFormat.PPH_PPN.ToString())
+                    rptToPrint = EnumReports.RptPrintInvoice_Pph_Ppn;
 
                 Session["ReportData"] = repCol;
                 Session["ReportParams"] = paramCol;
@@ -232,10 +359,10 @@ namespace JayaHarmoni.Web.Mvc.Controllers
                        InvoiceDate = invoice.InvoiceDate,
                        InvoiceLastStatus = invoice.InvoiceLastStatus,
                        InvoicePaidDate = invoice.InvoicePaidDate,
-                       InvoiceValue = invoice.InvoiceValue,
-                       InvoiceRetention = invoice.InvoiceRetention,
-                       InvoicePpn = invoice.InvoicePpn,
-                       InvoiceTotal = invoice.InvoiceTotal,
+                       //InvoiceValue = invoice.InvoiceValue,
+                       //InvoiceRetention = invoice.InvoiceRetention,
+                       //InvoicePpn = invoice.InvoicePpn,
+                       //InvoiceTotal = invoice.InvoiceTotal,
                        InvoiceId = invoice.Id
                    };
             IList<TInvoiceViewModel> list = new List<TInvoiceViewModel>();

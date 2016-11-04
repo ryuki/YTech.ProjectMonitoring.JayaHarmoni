@@ -1,6 +1,47 @@
-﻿@{
+﻿@model JayaHarmoni.Web.Mvc.Controllers.ViewModels.HomeViewModel
+@{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-	
+<div style="padding:10px">
+<h3>
+    Selamat Datang
+</h3>
+<div>
+    Sistem Informasi Manajemen Proyek ini digunakan sebagai alat monitoring kinerja proyek, dan otomatisasi perhitungan keuntungan proyek.
+</div>
+</div>
+@Html.EditorFor(m => m.Num1)
+@Html.EditorFor(m => m.Num2)
+@Html.EditorFor(m => m.Num3)
+
+@*@(Html.Kendo().NumericTextBox().Name("qty"))<br />
+@(Html.Kendo().NumericTextBox().Name("price"))<br />
+@(Html.Kendo().NumericTextBox().Name("total"))<br />*@
+
+<script>
+    $(function () {
+        //alert("Num1");
+        $("#Num1").kendoNumericTextBox({
+            change: CalculateCostTotal
+        });
+        $("#Num2").kendoNumericTextBox({
+            change: CalculateCostTotal
+        });
+        var total = $("#Num3").data("kendoNumericTextBox");
+        total.readonly();
+    })
+
+    function CalculateCostTotal() {
+        //alert("tesT");
+        var qty = $('#Num1').data('kendoNumericTextBox').value();
+        var price = $('#Num2').data('kendoNumericTextBox').value();
+        var total = qty * price;
+        $('#Num3').data('kendoNumericTextBox').value(total);
+
+        //alert(qty);
+        //alert(price);
+        //alert(total);
+    }
+</script>

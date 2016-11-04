@@ -64,7 +64,20 @@ namespace JayaHarmoni.Tasks
 
         public IEnumerable<TAbsentDet> GetListNotDeleted(string AbsentId)
         {
-            var entitys = this._TAbsentDetRepository.GetListNotDeleted(AbsentId); ;
+            var entitys = this._TAbsentDetRepository.GetListNotDeleted(AbsentId);
+            return entitys;
+        }
+
+
+        public decimal? GetTotalQtyByEmp(string employeeId, DateTime? period)
+        {
+            return this._TAbsentDetRepository.GetTotalQtyByEmp(employeeId, period); 
+        }
+
+
+        public IEnumerable<TAbsentDet> GetListByProjectAndPeriod(string ProjectId, DateTime? RptPeriod)
+        {
+            var entitys = this._TAbsentDetRepository.GetListByProjectAndPeriod(ProjectId, RptPeriod); ;
             return entitys;
         }
     }

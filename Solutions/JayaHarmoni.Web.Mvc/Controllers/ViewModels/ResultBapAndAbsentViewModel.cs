@@ -33,7 +33,10 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         public virtual decimal? BapQty { get; set; }
         
         [DisplayName("Total TimeSheet")]
-        public virtual decimal? SumAbsentDetResult { get; set; }        
+        public virtual decimal? SumAbsentDetResult { get; set; }
+
+        [DisplayName("Total Proyek")]
+        public virtual decimal? WorkQty { get; set; }     
 
         #endregion
     }

@@ -57,8 +57,15 @@ namespace JayaHarmoni.Tasks
 
         public IEnumerable<TAbsent> GetListNotDeleted()
         {
-            var entitys = this._TAbsentRepository.GetListNotDeleted(); ;
+            var entitys = this._TAbsentRepository.GetListNotDeleted();
             return entitys;
-        } 
+        }
+
+
+        public IEnumerable<TAbsent> GetListByProjectAndPeriod(string ProjectId, DateTime? RptPeriod)
+        {
+            var entitys = this._TAbsentRepository.GetListByProjectAndPeriod(ProjectId,  RptPeriod);
+            return entitys;
+        }
     }
 }

@@ -15,5 +15,7 @@ namespace JayaHarmoni.Domain.Contracts.Tasks
         IEnumerable<TInvoice> GetListNotDeleted();
 
         IEnumerable<TInvoice> GetListNotDeleted(string ParentProjectId);
+
+        IEnumerable<TInvoice> GetListByProjectAndPeriod(string ProjectId, DateTime? RptPeriod);
     }
 }

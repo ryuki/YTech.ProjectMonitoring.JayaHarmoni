@@ -107,6 +107,7 @@
     <Compile Include="Contracts\ITInvoiceRepository.cs" />
     <Compile Include="Contracts\ITProjectCostRepository.cs" />
     <Compile Include="Contracts\ITProjectRepository.cs" />
+    <Compile Include="Contracts\ITSalaryRepository.cs" />
     <Compile Include="Contracts\ITWorkRepository.cs" />
     <Compile Include="Contracts\Tasks\IMJobTasks.cs" />
     <Compile Include="Contracts\Tasks\IMEquipTasks.cs" />
@@ -120,12 +121,14 @@
     <Compile Include="Contracts\Tasks\ITInvoiceTasks.cs" />
     <Compile Include="Contracts\Tasks\ITProjectCostTasks.cs" />
     <Compile Include="Contracts\Tasks\ITProjectTasks.cs" />
+    <Compile Include="Contracts\Tasks\ITSalaryTasks.cs" />
     <Compile Include="Contracts\Tasks\ITWorkTasks.cs" />
     <Compile Include="TAbsentDet.cs" />
     <Compile Include="TAbsent.cs" />
     <Compile Include="TBap.cs" />
     <Compile Include="TInvoice.cs" />
     <Compile Include="TProjectCost.cs" />
+    <Compile Include="TSalary.cs" />
     <Compile Include="TWork.cs" />
     <Compile Include="TProject.cs" />
     <Compile Include="MOwner.cs" />

@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\JayaHarmoni.Web.Mvc\Views\Reports\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,8 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +55,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -61,27 +67,38 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Content Include="RptPrintInvoice.rdlc">
+    <Content Include="RptAbsentDetail.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="RptPrintInvoice_Pph.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RptPrintInvoice_Pph_Ppn.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="app.config" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.ChangePasswordModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.CostViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.CustomerViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.CustomProductNameValidationAttribute.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.EmployeeViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.EquipViewModel.datasource" />
+    <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.HomeViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.JobViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.LogOnModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.MJobViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.MOwnerViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.RegisterModel.datasource" />
+    <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.ReportsViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.ResultBapAndAbsentViewModel.datasource" />
+    <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.TAbsentAllViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.TAbsentDetViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.TAbsentViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.TBapViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.TInvoiceViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.TProjectCostViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.TProjectViewModel.datasource" />
+    <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.TSalaryViewModel.datasource" />
     <None Include="Properties\DataSources\JayaHarmoni.Web.Mvc.Controllers.ViewModels.TWorkViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -102,7 +119,6 @@
     <ProjectReference Include="..\JayaHarmoni.Web.Mvc\JayaHarmoni.Web.Mvc.csproj">
       <Project>{39613ba0-1206-4a4b-a16a-c1f2a22d1267}</Project>
       <Name>JayaHarmoni.Web.Mvc</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

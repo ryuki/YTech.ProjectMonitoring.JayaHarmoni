@@ -14,7 +14,8 @@
 
         columns.Bound(p => p.ProjectCostDate).Width("auto").Format("{0:dd-MMM-yyyy}");
         columns.Bound(p => p.ProjectCostQty).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.ProjectCostTotal).Width("auto").Format("{0:N2}");
+        columns.Bound(p => p.ProjectCostPrice).Width("auto").Format("{0:N2}");
+        columns.Bound(p => p.ProjectCostTotal).Width("auto").Format("{0:N2}").Title("Total");
         columns.Bound(p => p.ProjectCostDesc).Width("auto");
         columns.Command(command => { command.Edit().Text(" "); command.Destroy().Text(" "); }).Width("auto");
     })
@@ -55,7 +56,7 @@
         //RequestEnd handler code
         //bug : error when update after insert new data, no id catched
         //bug fix : refresh after insert new data, 
-        if (e.type === "create") {
+        if (e.type === "create" || e.type === "update") {
             //alert("onRequestEnd");
             //check for errors in the response
             if (e.response == null || e.response.Errors == null) {
@@ -121,5 +122,35 @@
             });
             alert(message);
         }
+    }
+
+    $(function () {
+        //alert("ProjectCostQty");
+        $("#ProjectCostQty").kendoNumericTextBox({
+            change: CalculateCostTotal
+        });
+        $("#ProjectCostPrice").kendoNumericTextBox({
+            change: CalculateCostTotal
+        });
+        //var total = $("#ProjectCostTotal").data("kendoNumericTextBox");
+        //total.readonly();
+        //$("#ProjectCostQty").change(function () {
+        //    alert("Handler for .change() called.");
+        //});
+        //$("#ProjectCostPrice").change(function () {
+        //    alert("Handler for .change() called.");
+        //});
+    })
+
+    function CalculateCostTotal() {
+        alert("tesT");
+        var qty = $('#ProjectCostQty').data('kendoNumericTextBox').value();
+        var price = $('#ProjectCostPrice').data('kendoNumericTextBox').value();
+        var total = qty * price;
+        $('#ProjectCostTotal').data('kendoNumericTextBox').value(total);
+
+        alert(qty);
+        alert(price);
+        alert(total);
     }
 </script>

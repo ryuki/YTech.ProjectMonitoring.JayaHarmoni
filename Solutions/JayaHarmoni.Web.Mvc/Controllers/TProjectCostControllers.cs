@@ -72,8 +72,9 @@ namespace JayaHarmoni.Web.Mvc.Controllers
 
             entity.ProjectCostDate = vm.ProjectCostDate;
             entity.ProjectCostQty = vm.ProjectCostQty;
-            entity.ProjectCostTotal = vm.ProjectCostTotal;
+            entity.ProjectCostTotal = vm.ProjectCostQty * vm.ProjectCostPrice;
             entity.ProjectCostDesc = vm.ProjectCostDesc;
+            entity.ProjectCostPrice = vm.ProjectCostPrice;
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -130,6 +131,7 @@ namespace JayaHarmoni.Web.Mvc.Controllers
 
             ProjectCostDate = entity.ProjectCostDate,
             ProjectCostQty = entity.ProjectCostQty,
+            ProjectCostPrice = entity.ProjectCostPrice,
             ProjectCostTotal = entity.ProjectCostTotal,
             ProjectCostDesc = entity.ProjectCostDesc,
             ProjectCostId = entity.Id

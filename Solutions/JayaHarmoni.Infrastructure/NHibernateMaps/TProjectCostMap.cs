@@ -12,21 +12,22 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
         public void Override(FluentNHibernate.Automapping.AutoMapping<TProjectCost> mapping)
         {
             #region Properties
-        
+
             mapping.DynamicUpdate();
             mapping.DynamicInsert();
             mapping.SelectBeforeUpdate();
 
-            mapping.Table("[dbo].[T_PROJECT_COST]");
-			mapping.Id(x => x.Id, "[PROJECT_COST_ID]")
+            mapping.Table("[T_PROJECT_COST]");
+            mapping.Id(x => x.Id, "[PROJECT_COST_ID]")
                  .GeneratedBy.Assigned();
 
             mapping.References<MCost>(x => x.CostId, "[COST_ID]").ForeignKey();
             mapping.References<MEquip>(x => x.EquipId, "[EQUIP_ID]").ForeignKey();
             mapping.References<TProject>(x => x.ProjectId, "[PROJECT_ID]").ForeignKey();
-            
+
             mapping.Map(x => x.ProjectCostDate, "[PROJECT_COST_DATE]");
             mapping.Map(x => x.ProjectCostQty, "[PROJECT_COST_QTY]");
+            mapping.Map(x => x.ProjectCostPrice, "[PROJECT_COST_PRICE]");
             mapping.Map(x => x.ProjectCostTotal, "[PROJECT_COST_TOTAL]");
             mapping.Map(x => x.ProjectCostStatus, "[PROJECT_COST_STATUS]");
             mapping.Map(x => x.ProjectCostDesc, "[PROJECT_COST_DESC]");

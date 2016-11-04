@@ -17,12 +17,12 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
             mapping.DynamicInsert();
             mapping.SelectBeforeUpdate();
 
-            mapping.Table("[dbo].[T_ABSENT]");
+            mapping.Table("[T_ABSENT]");
 			mapping.Id(x => x.Id, "[ABSENT_ID]")
                  .GeneratedBy.Assigned();
 
-            mapping.References<MEquip>(x => x.EquipId, "[EQUIP_ID]").ForeignKey();
-            mapping.References<TProject>(x => x.ProjectId, "[PROJECT_ID]").ForeignKey();
+            mapping.References<MEquip>(x => x.EquipId, "[EQUIP_ID]").ForeignKey().Fetch.Join();
+            mapping.References<TProject>(x => x.ProjectId, "[PROJECT_ID]").ForeignKey().Fetch.Join();
             
             mapping.Map(x => x.AbsentPeriod, "[ABSENT_PERIOD]");
             mapping.Map(x => x.AbsentLocation, "[ABSENT_LOCATION]");

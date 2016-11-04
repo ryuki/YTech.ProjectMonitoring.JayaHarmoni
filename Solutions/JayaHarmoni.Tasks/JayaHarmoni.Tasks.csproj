@@ -98,6 +98,7 @@
     <Compile Include="TInvoiceTasks.cs" />
     <Compile Include="TProjectCostTasks.cs" />
     <Compile Include="TProjectTasks.cs" />
+    <Compile Include="TSalaryTasks.cs" />
     <Compile Include="TWorkTasks.cs" />
   </ItemGroup>
   <ItemGroup>

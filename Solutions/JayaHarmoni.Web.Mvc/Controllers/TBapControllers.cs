@@ -69,7 +69,7 @@ namespace JayaHarmoni.Web.Mvc.Controllers
 
             entity.BapPeriod = new DateTime(vm.BapPeriod.Value.Year, vm.BapPeriod.Value.Month, 1);
             entity.BapQty = vm.BapQty;
-            entity.BapTotal = vm.BapTotal;
+            entity.BapTotal = vm.BapQty * vm.WorkPrice;
             entity.BapStatus = vm.BapStatus;
             entity.BapDesc = vm.BapDesc;
         }
@@ -123,6 +123,7 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             //ProjectName = entity.ProjectId != null ? entity.ProjectId.ProjectName : string.Empty,
             WorkId = entity.WorkId != null ? entity.WorkId.Id : string.Empty,
             WorkName = entity.WorkId != null ? entity.WorkId.JobId.JobName : string.Empty,
+            WorkPrice = entity.WorkId != null ? entity.WorkId.WorkPrice : 0,
 
             BapPeriod = entity.BapPeriod,
             BapQty = entity.BapQty,
@@ -193,7 +194,8 @@ namespace JayaHarmoni.Web.Mvc.Controllers
                            WorkId = (string)((object[])ent)[3],
                            JobName = (string)((object[])ent)[4],
                            BapQty = (decimal?)((object[])ent)[5],
-                           SumAbsentDetResult = (decimal?)((object[])ent)[6]
+                           SumAbsentDetResult = (decimal?)((object[])ent)[6],
+                           WorkQty = (decimal?)((object[])ent)[7]
                        };
             ViewData["TBaps"] = list;
             return Json(list, JsonRequestBehavior.AllowGet);

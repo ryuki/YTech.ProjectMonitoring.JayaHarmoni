@@ -37,6 +37,10 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         [DisplayName("No SPK")]
         public virtual string ProjectSpkNo { get; set; }
 
+        [DisplayName("Format Invoice")]
+        [UIHint("InvoiceFormat")]
+        public virtual string ProjectInvoiceFormat { get; set; }
+
         [DisplayName("Tanggal Proyek")]
         public System.DateTime? ProjectDate { get; set; }
 
@@ -58,11 +62,11 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         [DisplayName("Tanggal Selesai")]
         public System.DateTime? ProjectFinishDate { get; set; }
 
-        [DisplayName("Status")]
-        public string ProjectStatus { get; set; }
+        //[DisplayName("Status")]
+        //public string ProjectStatus { get; set; }
 
-        [DisplayName("Keterangan")]
-        public string ProjectDesc { get; set; }
+        //[DisplayName("Keterangan")]
+        //public string ProjectDesc { get; set; }
 
 
         #endregion

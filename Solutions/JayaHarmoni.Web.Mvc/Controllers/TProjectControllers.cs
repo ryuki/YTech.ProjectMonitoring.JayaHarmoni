@@ -86,10 +86,11 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             entity.ProjectStartDate = vm.ProjectStartDate;
             entity.ProjectEndDate = vm.ProjectEndDate;
             entity.ProjectFinishDate = vm.ProjectFinishDate;
-            entity.ProjectStatus = vm.ProjectStatus;
-            entity.ProjectDesc = vm.ProjectDesc;
+            //entity.ProjectStatus = vm.ProjectStatus;
+            //entity.ProjectDesc = vm.ProjectDesc;
             entity.CustomerId = string.IsNullOrEmpty(vm.CustomerId) ? null : _custTasks.One(vm.CustomerId);
             entity.ProjectSpkNo = vm.ProjectSpkNo;
+            entity.ProjectInvoiceFormat = vm.ProjectInvoiceFormat;
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -147,9 +148,10 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             ProjectStartDate = entity.ProjectStartDate,
             ProjectEndDate = entity.ProjectEndDate,
             ProjectFinishDate = entity.ProjectFinishDate,
-            ProjectStatus = entity.ProjectStatus,
-            ProjectDesc = entity.ProjectDesc,
+            //ProjectStatus = entity.ProjectStatus,
+            //ProjectDesc = entity.ProjectDesc,
             ProjectSpkNo = entity.ProjectSpkNo,
+            ProjectInvoiceFormat = entity.ProjectInvoiceFormat,
             ProjectId = entity.Id
         };
 
@@ -164,6 +166,18 @@ namespace JayaHarmoni.Web.Mvc.Controllers
                            ProjectName = proj.ProjectName
                        };
             ViewData["projects"] = list;
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult PopulateInvoiceFormat()
+        {
+            var list = from EnumInvoiceFormat ent in Enum.GetValues(typeof(EnumInvoiceFormat))
+                       select new
+                       {
+                           Value = ent.ToString(),
+                           Text = ent.ToString()
+                       };
+            ViewData["InvoiceFormat"] = list;
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
@@ -200,11 +214,12 @@ namespace JayaHarmoni.Web.Mvc.Controllers
         {
             entity.WorkQty = vm.WorkQty;
             entity.WorkPrice = vm.WorkPrice;
-            entity.WorkTotal = vm.WorkTotal;
+            entity.WorkTotal = vm.WorkQty * vm.WorkPrice;
             entity.WorkRealQty = vm.WorkRealQty;
             entity.WorkRealPaid = vm.WorkRealPaid;
             entity.JobId = string.IsNullOrEmpty(vm.JobId) ? null : _jobTasks.One(vm.JobId);
             entity.ProjectId = string.IsNullOrEmpty(ParentProjectId) ? null : _tasks.One(ParentProjectId);
+            entity.WorkRetentionStatus = vm.WorkRetentionStatus;
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -259,6 +274,7 @@ namespace JayaHarmoni.Web.Mvc.Controllers
                        WorkTotal = entity.WorkTotal,
                        WorkRealQty = entity.WorkRealQty,
                        WorkRealPaid = entity.WorkRealPaid,
+                       WorkRetentionStatus = entity.WorkRetentionStatus,
                        WorkId = entity.Id
                    };
 
@@ -276,6 +292,24 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult PopulateWorkRetentionStatus()
+        {
+            var list = from EnumWorkRetentionStatus ent in Enum.GetValues(typeof(EnumWorkRetentionStatus))
+                       select new
+                       {
+                           Value = ent.ToString(),
+                           Text = ent.ToString()
+                       };
+            ViewData["WorkRetentionStatus"] = list;
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTWork(string workId)
+        {
+            var work = _workTasks.One(workId);
+            ViewData["GetTWork"] = work;
+            return Json(work, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }

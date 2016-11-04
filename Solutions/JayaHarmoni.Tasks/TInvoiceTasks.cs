@@ -67,5 +67,12 @@ namespace JayaHarmoni.Tasks
             var entitys = this._TInvoiceRepository.GetListNotDeleted(ParentProjectId); ;
             return entitys;
         }
+
+
+        public IEnumerable<TInvoice> GetListByProjectAndPeriod(string ProjectId, DateTime? RptPeriod)
+        {
+            var entitys = this._TInvoiceRepository.GetListByProjectAndPeriod(ProjectId,  RptPeriod); ;
+            return entitys;
+        }
     }
 }

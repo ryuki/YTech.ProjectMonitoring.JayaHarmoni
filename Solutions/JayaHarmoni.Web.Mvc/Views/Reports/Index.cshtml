@@ -4,32 +4,57 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div id="result"></div>
-<h2>@Model.Title</h2>
-@using (Html.BeginForm())
-{
-    if (Model.ShowDateFrom) {
+<div style="padding: 10px;">
+    <h2>@Model.Title</h2>
+    @using (Html.BeginForm())
+    {
+        if (Model.ShowProject)
+        {
         @:<div class="editor-label">
-            @Html.LabelFor(model => model.RptDateFrom)
+@Html.LabelFor(model => model.ProjectId)
         @:</div>
         @:<div class="editor-field">
-            @Html.EditorFor(model => model.RptDateFrom)
-            @Html.ValidationMessageFor(model => model.RptDateFrom)
-        @:</div>
-      }
-    
-    if(Model.ShowDateTo) {
-        @:<div class="editor-label">
-            @Html.LabelFor(model => model.RptDateTo)
-        @:</div>
-        @:<div class="editor-field">
-            @Html.EditorFor(model => model.RptDateTo)
-            @Html.ValidationMessageFor(model => model.RptDateTo)
-        @:</div>
-      }
-    
-    @Html.Button("btnGenerate", "Lihat Laporan", HtmlButtonType.Button)
-}
+@Html.EditorFor(model => model.ProjectId)
+            @Html.ValidationMessageFor(model => model.ProjectId)
+        @:</div><br />
+              }
 
+        if (Model.ShowDateFrom)
+        {
+        @:<div class="editor-label">
+@Html.LabelFor(model => model.RptDateFrom)
+        @:</div>
+        @:<div class="editor-field">
+@Html.EditorFor(model => model.RptDateFrom)
+            @Html.ValidationMessageFor(model => model.RptDateFrom)
+        @:</div><br />
+              }
+
+        if (Model.ShowDateTo)
+        {
+        @:<div class="editor-label">
+@Html.LabelFor(model => model.RptDateTo)
+        @:</div>
+        @:<div class="editor-field">
+@Html.EditorFor(model => model.RptDateTo)
+            @Html.ValidationMessageFor(model => model.RptDateTo)
+        @:</div><br />
+              }
+
+        if (Model.ShowPeriod)
+        {
+        @:<div class="editor-label">
+@Html.LabelFor(model => model.RptPeriod)
+        @:</div>
+        @:<div class="editor-field">
+@Html.EditorFor(model => model.RptPeriod)
+            @Html.ValidationMessageFor(model => model.RptPeriod)
+        @:</div><br />
+              }
+    
+        @Html.Button("btnGenerate", "Lihat Laporan", HtmlButtonType.Button)
+    }
+</div>
 <script type="text/javascript">
     $(function () {
         $("button[name='btnGenerate']").bind("click", function () {

@@ -49,5 +49,11 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
             get;
             set;
         }
+
+        [DisplayName("Gaji Pokok")]
+        public virtual decimal? EmployeeBasicSalary { get; set; }
+
+        [DisplayName("Upah Harian")]
+        public virtual decimal? EmployeeDailyAllowance { get; set; }
     }
 }

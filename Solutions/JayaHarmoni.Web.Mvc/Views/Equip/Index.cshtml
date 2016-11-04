@@ -8,6 +8,7 @@
     .Name("Grid")
     .Columns(columns =>
     {
+        columns.Bound(p => p.EquipID).Width("auto");
         columns.Bound(p => p.EquipName).Width("auto");
         columns.Bound(p => p.EquipType).Width("auto");
         columns.Bound(p => p.EquipBrand).Width("auto");

@@ -13,5 +13,9 @@ namespace JayaHarmoni.Domain.Contracts
        IEnumerable<TAbsentDet> GetListNotDeleted();
 
        IEnumerable<TAbsentDet> GetListNotDeleted(string AbsentId);
+
+       decimal? GetTotalQtyByEmp(string employeeId, DateTime? period);
+
+       IEnumerable<TAbsentDet> GetListByProjectAndPeriod(string ProjectId, DateTime? RptPeriod);
     }
 }

@@ -17,7 +17,7 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
             mapping.DynamicInsert();
             mapping.SelectBeforeUpdate();
 
-            mapping.Table("[dbo].[M_OWNER]");
+            mapping.Table("[M_OWNER]");
 			mapping.Id(x => x.Id, "[OWNER_ID]")
                  .GeneratedBy.Assigned();
 

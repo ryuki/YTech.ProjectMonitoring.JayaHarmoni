@@ -17,14 +17,14 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
             mapping.DynamicInsert();
             mapping.SelectBeforeUpdate();
 
-            mapping.Table("[dbo].[T_ABSENT_DET]");
+            mapping.Table("[T_ABSENT_DET]");
 			mapping.Id(x => x.Id, "[ABSENT_DET_ID]")
                  .GeneratedBy.Assigned();
 
-            mapping.References<MEmployee>(x => x.AbsentDetOperator, "[ABSENT_DET_OPERATOR]").ForeignKey();
-            mapping.References<MEmployee>(x => x.AbsentDetSinso, "[ABSENT_DET_SINSO]").ForeignKey();
-            mapping.References<TAbsent>(x => x.AbsentId, "[ABSENT_ID]").ForeignKey();
-            mapping.References<TWork>(x => x.WorkId, "[WORK_ID]").ForeignKey();
+            mapping.References<MEmployee>(x => x.AbsentDetOperator, "[ABSENT_DET_OPERATOR]").ForeignKey().Fetch.Join();
+            mapping.References<MEmployee>(x => x.AbsentDetSinso, "[ABSENT_DET_SINSO]").ForeignKey().Fetch.Join();
+            mapping.References<TAbsent>(x => x.AbsentId, "[ABSENT_ID]").ForeignKey().Fetch.Join();
+            mapping.References<TWork>(x => x.WorkId, "[WORK_ID]").ForeignKey().Fetch.Join();
             
             mapping.Map(x => x.AbsentDetDate, "[ABSENT_DET_DATE]");
             mapping.Map(x => x.AbsentDetStart, "[ABSENT_DET_START]");

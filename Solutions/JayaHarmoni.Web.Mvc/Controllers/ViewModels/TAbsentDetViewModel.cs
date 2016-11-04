@@ -58,7 +58,8 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         [DisplayName("Jam Kerja Selesai")]
         public virtual decimal? AbsentDetEnd { get; set; }
 
-        [DisplayName("Jam Kerja Jumlah")]
+        [DisplayName(" ")]
+        [HiddenInput]
         public virtual decimal? AbsentDetQty { get; set; }
         
         [DisplayName("Blok")]

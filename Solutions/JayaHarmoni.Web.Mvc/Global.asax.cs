@@ -109,7 +109,8 @@
             NHibernateSession.Init(
                 this.webSessionStorage,
                 new[] { Server.MapPath("~/bin/JayaHarmoni.Infrastructure.dll") },
-                new AutoPersistenceModelGenerator().Generate());
+                new AutoPersistenceModelGenerator().Generate(),
+                Server.MapPath("~/web.config"));
         }
     }
 }

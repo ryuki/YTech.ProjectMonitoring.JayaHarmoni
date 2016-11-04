@@ -14,8 +14,9 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
             mapping.DynamicUpdate();
             mapping.DynamicInsert();
             mapping.SelectBeforeUpdate();
+            mapping.OptimisticLock.Version();
 
-            mapping.Table("dbo.M_COST");
+            mapping.Table("M_COST");
             mapping.Id(x => x.Id, "COST_ID")
                  .GeneratedBy.Assigned();
 
@@ -29,7 +30,10 @@ namespace JayaHarmoni.Infrastructure.NHibernateMaps
             mapping.Map(x => x.CreatedDate, "CREATED_DATE");
             mapping.Map(x => x.ModifiedBy, "MODIFIED_BY");
             mapping.Map(x => x.ModifiedDate, "MODIFIED_DATE");
-            mapping.Map(x => x.RowVersion, "ROW_VERSION").ReadOnly();
+            //mapping.Map(x => x.RowVersion, "ROW_VERSION").ReadOnly();
+            mapping.Version(x => x.RowVersion)
+                .Column("ROW_VERSION")
+                .Not.Nullable();
         }
     }
 }

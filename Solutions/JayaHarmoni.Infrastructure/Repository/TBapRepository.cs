@@ -39,7 +39,8 @@ namespace JayaHarmoni.Infrastructure.Repository
                     w.Id as WorkId,
                     j.JobName,
                     b.BapQty,
-                    sum(d.AbsentDetResult) as SumAbsentDetResult
+                    sum(d.AbsentDetResult) as SumAbsentDetResult,
+                    w.WorkQty
                 from TBap b, TAbsent a ,TAbsentDet d, TProject p, TWork w, MJob j
                 where b.ProjectId.Id = a.ProjectId.Id and b.ProjectId.Id = p.Id and b.BapPeriod = a.AbsentPeriod
                     and a.Id = d.AbsentId and b.WorkId.Id = d.WorkId.Id and b.WorkId.Id = w.Id and w.JobId.Id = j.Id
@@ -49,7 +50,8 @@ namespace JayaHarmoni.Infrastructure.Repository
                     b.BapPeriod,
                     w.Id,
                     j.JobName,
-                    b.BapQty");
+                    b.BapQty,
+                    w.WorkQty");
             IQuery q = Session.CreateQuery(sql.ToString());
             q.SetString("ParentProjectId", ParentProjectId);
             return q.Enumerable<object>();

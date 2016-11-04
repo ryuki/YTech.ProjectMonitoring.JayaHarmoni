@@ -13,5 +13,7 @@ namespace JayaHarmoni.Domain.Contracts.Tasks
         TAbsent Delete(TAbsent entity);
         TAbsent One(string id);
         IEnumerable<TAbsent> GetListNotDeleted();
+
+        IEnumerable<TAbsent> GetListByProjectAndPeriod(string ProjectId, DateTime? RptPeriod);
     }
 }

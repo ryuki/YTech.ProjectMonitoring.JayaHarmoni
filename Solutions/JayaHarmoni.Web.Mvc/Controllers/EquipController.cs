@@ -46,7 +46,7 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             if (custVM != null && ModelState.IsValid)
             {
                 MEquip cust = new MEquip();
-                cust.SetAssignedIdTo(Guid.NewGuid().ToString());
+                cust.SetAssignedIdTo(custVM.EquipID);
 
                 ConvertToEquip(custVM, cust);
 
@@ -125,11 +125,11 @@ namespace JayaHarmoni.Web.Mvc.Controllers
         public JsonResult PopulateEquips()
         {
             var list = from equip in _equipTasks.GetListNotDeleted()
-                            select new
-                            {
-                                Id = equip.Id,
-                                EquipName = equip.EquipName
-                            };
+                       select new
+                       {
+                           Id = equip.Id,
+                           EquipName = equip.EquipName
+                       };
             ViewData["equips"] = list;
             return Json(list, JsonRequestBehavior.AllowGet);
         }

@@ -13,7 +13,8 @@
 
         columns.Bound(p => p.BapPeriod).Width("auto").Format("{0:MMMM-yyyy}");
         columns.Bound(p => p.BapQty).Width("auto").Format("{0:N2}");
-        columns.Bound(p => p.BapTotal).Width("auto").Format("{0:N2}");
+        columns.Bound(p => p.WorkPrice).Width("auto").Format("{0:N2}").Title("Harga");
+        columns.Bound(p => p.BapTotal).Width("auto").Format("{0:N2}").Title("Total");//.ClientTemplate("#= CalculateBapTotal(data) #");
         columns.Bound(p => p.BapStatus).Width("auto");
         columns.Bound(p => p.BapDesc).Width("auto");
         columns.Command(command => { command.Edit().Text(" "); command.Destroy().Text(" "); }).Width("auto");
@@ -87,7 +88,7 @@
 <div class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" style="margin: 0.5em; display: block; " data-for="#=field#" data-valmsg-for="#=field#" id="#=field#_validationMessage">
             <span class="k-icon k-warning"> </span>#=message#<div class="k-callout k-callout-n"></div></div>
 </script>
-
+<button title="calc" value="calculate" id="calcbtn">calculate</button>
 <script type="text/javascript">
     function onRequestEnd(e) {
         //RequestEnd handler code
@@ -116,6 +117,15 @@
             //$("a.k-grid-add").trigger("click");
             setTimeout('$("a.k-grid-add").trigger("click");', 3000);
         }
+
+        $("#WorkId").kendoDropDownList({
+            change: function (e) {
+                var value = this.value();
+                alert(value);
+                // Use the value of the widget
+                onWorkIdChange(value);
+            }
+        });
     })
 
     function getURLParameter(name) {
@@ -171,5 +181,28 @@
         return {
             ParentProjectId: $("#ddlProject").val()
         }
+    }
+
+    function onWorkIdChange(workId) {
+        //call set price of spart
+        var getSPartUrl = '@(Url.Action("GetTWork", "TProject", new { random = DateTime.Now.ToFileTimeUtc().ToString() }))' + '&workId=' + workId;
+        $.ajax({
+            type: 'POST',
+            url: getSPartUrl,
+            error: function (response) {
+                alert("error: " + response);
+            }, success: function (response) {
+                alert(response.WorkPrice);
+                $('#WorkPrice').data('kendoNumericTextBox').value(response.WorkPrice);
+                CalculateBapTotal();
+            }
+        });
+    }
+
+    function CalculateBapTotal(data) {
+        //alert(data.BapQty);
+        //alert(data.WorkPrice);
+        var total = data.BapQty * data.WorkPrice;
+        return total;
     }
 </script>

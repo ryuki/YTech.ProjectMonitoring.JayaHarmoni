@@ -1,0 +1,15 @@
+@model string
+
+@(Html.Kendo().DropDownListFor(m => m)
+        .OptionLabel("-Pilih Format Invoice-")
+        .DataValueField("Value")
+        .DataTextField("Text") 
+         .HtmlAttributes(new { @style="width:200px;" })
+         .AutoBind(false)
+         .DataSource(source => {
+              source.Read(read =>
+              {
+                  read.Action("PopulateInvoiceFormat", "TProject");                  
+              });              
+          })
+)

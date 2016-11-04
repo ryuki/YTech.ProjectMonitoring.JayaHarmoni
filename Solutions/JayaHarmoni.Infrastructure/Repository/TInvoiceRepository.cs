@@ -27,5 +27,15 @@ namespace JayaHarmoni.Infrastructure.Repository
            criteria.Add(Expression.Eq("ProjectId.Id", ParentProjectId));
            return criteria.List<TInvoice>();
        }
+
+
+       public IEnumerable<TInvoice> GetListByProjectAndPeriod(string ProjectId, DateTime? RptPeriod)
+       {
+           ICriteria criteria = Session.CreateCriteria(typeof(TInvoice));
+           criteria.Add(Expression.Not(Expression.Eq("DataStatus", "Deleted")));
+           criteria.Add(Expression.Eq("ProjectId.Id", ProjectId));
+           criteria.Add(Expression.Eq("InvoicePeriod", RptPeriod));
+           return criteria.List<TInvoice>();
+       }
     }
 }

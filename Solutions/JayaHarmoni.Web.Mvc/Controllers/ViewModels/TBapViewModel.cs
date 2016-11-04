@@ -41,29 +41,34 @@ namespace JayaHarmoni.Web.Mvc.Controllers.ViewModels
         [DisplayName("Periode")]
         [UIHint("Period")]
         [Required]
-        public virtual System.DateTime? BapPeriod { get; set; }
+        public System.DateTime? BapPeriod { get; set; }
 
         [DisplayName("Kuantitas")]
-        public virtual decimal? BapQty { get; set; }
+        public decimal? BapQty { get; set; }
 
-        [DisplayName("Total")]
-        public virtual decimal? BapTotal { get; set; }
+        [DisplayName(" ")]
+        [HiddenInput]
+        public decimal? WorkPrice { get; set; }
+
+        [DisplayName(" ")]
+        [HiddenInput]
+        public decimal? BapTotal { get; set; }
 
         [DisplayName("Status")]
-        public virtual string BapStatus { get; set; }
+        public string BapStatus { get; set; }
 
         [DisplayName("Keterangan")]
-        public virtual string BapDesc { get; set; }
+        public string BapDesc { get; set; }
 
 
         #endregion
 
         #region property for report only
 
-        [HiddenInput]
-        [ReadOnly(true)]
-        [DisplayName(" ")]
-        public decimal? WorkPrice { get; set; }
+        //[HiddenInput]
+        //[ReadOnly(true)]
+        //[DisplayName(" ")]
+        //public decimal? WorkPrice { get; set; }
         #endregion
     }
 }

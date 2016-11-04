@@ -175,7 +175,7 @@ namespace JayaHarmoni.Web.Mvc.Controllers
             //entity.AbsentDetDate = vm.AbsentDetDate;
             entity.AbsentDetStart = vm.AbsentDetStart;
             entity.AbsentDetEnd = vm.AbsentDetEnd;
-            entity.AbsentDetQty = vm.AbsentDetQty;
+            entity.AbsentDetQty = vm.AbsentDetEnd - vm.AbsentDetStart;
             entity.AbsentDetBlock = vm.AbsentDetBlock;
             entity.AbsentDetResult = vm.AbsentDetResult;
             entity.AbsentDetBbm = vm.AbsentDetBbm;
@@ -201,28 +201,27 @@ namespace JayaHarmoni.Web.Mvc.Controllers
                     entity.DataStatus = "Updated";
 
                     _absentDetTasks.Update(entity);
+
+                    //calculate total
+                    CalculateTotalAbsent(ParentAbsentId, entity.AbsentId);
                 }
             }
 
             return Json(ModelState.ToDataSourceResult());
         }
 
-        //[AcceptVerbs(HttpVerbs.Post)]
-        //public ActionResult TAbsentDets_Destroy([DataSourceRequest] DataSourceRequest request, TAbsentDetViewModel vm, string ParentAbsentId)
-        //{
-        //    if (vm != null)
-        //    {
-        //        var entity = _absentDetTasks.One(vm.AbsentDetId);
-        //        if (entity != null)
-        //        {
-        //            entity.ModifiedDate = DateTime.Now;
-        //            entity.ModifiedBy = User.Identity.Name;
-        //            entity.DataStatus = "Deleted";
-        //            _absentDetTasks.Update(entity);
-        //        }
-        //    }
-        //    return Json(ModelState.ToDataSourceResult());
-        //}
+        private void CalculateTotalAbsent(string ParentAbsentId, TAbsent absent)
+        {
+            var entitys = this._absentDetTasks.GetListNotDeleted(ParentAbsentId);
+            absent.AbsentTotalQty = entitys.Sum(m => m.AbsentDetQty);
+            absent.AbsentTotalResult = entitys.Sum(m => m.AbsentDetResult);
+            absent.AbsentTotalBbm = entitys.Sum(m => m.AbsentDetBbm);
+
+            absent.ModifiedDate = DateTime.Now;
+            absent.ModifiedBy = User.Identity.Name;
+            absent.DataStatus = EnumDataStatus.Updated.ToString();
+            _absentTasks.Update(absent);
+        }
 
         private IEnumerable<TAbsentDetViewModel> GetTAbsentDets(string ParentAbsentId)
         {

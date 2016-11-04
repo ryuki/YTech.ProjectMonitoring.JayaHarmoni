@@ -14,6 +14,7 @@
         columns.Bound(p => p.WorkId).Width("auto").ClientTemplate("#:JobName#");
         columns.Bound(p => p.BapQty).Width("auto").Format("{0:N2}");
         columns.Bound(p => p.SumAbsentDetResult).Width("auto").Format("{0:N2}");
+        columns.Bound(p => p.WorkQty).Width("auto").Format("{0:N2}");
         //columns.Command(command => { command.Edit().Text(" "); command.Destroy().Text(" "); }).Width("auto");
     })
         //.ToolBar(toolbar => { toolbar.Create().Text("Tambah BAP Baru"); })

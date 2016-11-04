@@ -122,6 +122,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="NHibernateMaps\TProjectMap.cs" />
+    <Compile Include="NHibernateMaps\TSalaryMap.cs" />
     <Compile Include="NHibernateMaps\TWorkMap.cs" />
     <Compile Include="Repository\MEquipRepository.cs" />
     <Compile Include="Repository\MCostRepository.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Repository\TInvoiceRepository.cs" />
     <Compile Include="Repository\TProjectCostRepository.cs" />
     <Compile Include="Repository\TProjectRepository.cs" />
+    <Compile Include="Repository\TSalaryRepository.cs" />
     <Compile Include="Repository\TWorkRepository.cs" />
   </ItemGroup>
   <ItemGroup>
